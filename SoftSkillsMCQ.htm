@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BVDU-Soft Skills-MCQ Test</title>
+    <style>
+        :root {
+            --neon-green: #39ff14;
+            --purple-dark: #1a0033;
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .animated-border {
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green), inset 0 0 10px rgba(57, 255, 20, 0.2);
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px var(--neon-green), inset 0 0 10px rgba(57, 255, 20, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--neon-green), inset 0 0 20px rgba(57, 255, 20, 0.4);
+            }
+        }
+
+        header {
+            background: var(--purple-dark);
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: var(--neon-green);
+            font-size: 2.5em;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            background: var(--purple-dark);
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .tab:hover {
+            background: #2a0055;
+            transform: translateY(-2px);
+        }
+
+        .tab.active {
+            background: var(--purple-dark);
+        }
+
+        .section {
+            display: none;
+            background: var(--purple-dark);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            background: var(--black);
+            border: 2px solid var(--neon-green);
+            border-radius: 5px;
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        button {
+            background: var(--neon-green);
+            color: var(--black);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .question-card {
+            background: var(--black);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            max-height: none;
+        }
+
+        .scenario-text {
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 15px;
+            background: var(--purple-dark);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-size: 1em;
+        }
+
+        .scenario-text::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .scenario-text::-webkit-scrollbar-track {
+            background: var(--black);
+            border-radius: 5px;
+        }
+
+        .scenario-text::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 5px;
+        }
+
+        .question-number {
+            color: var(--neon-green);
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1.05em;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            background: var(--purple-dark);
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .option-label:hover {
+            border-color: var(--neon-green);
+            transform: translateX(5px);
+        }
+
+        .option-label.selected {
+            background: rgba(57, 255, 20, 0.2);
+            border-color: var(--neon-green);
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--purple-dark);
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .timer.warning {
+            color: #ff3333;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .question-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: var(--black);
+            border-radius: 8px;
+        }
+
+        .question-btn {
+            padding: 10px;
+            background: var(--purple-dark);
+            border: 2px solid var(--neon-green);
+            color: var(--white);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-btn:hover {
+            background: rgba(57, 255, 20, 0.2);
+        }
+
+        .question-btn.answered {
+            background: rgba(57, 255, 20, 0.3);
+        }
+
+        .question-btn.current {
+            background: var(--neon-green);
+            color: var(--black);
+        }
+
+        .question-btn.skipped {
+            background: rgba(255, 51, 51, 0.3);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--black);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .stat-label {
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--neon-green);
+        }
+
+        th {
+            background: var(--black);
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: rgba(57, 255, 20, 0.1);
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 2px solid;
+        }
+
+        .alert-success {
+            background: rgba(57, 255, 20, 0.2);
+            border-color: var(--neon-green);
+        }
+
+        .alert-error {
+            background: rgba(255, 51, 51, 0.2);
+            border-color: #ff3333;
+        }
+
+        .alert-info {
+            background: rgba(57, 157, 255, 0.2);
+            border-color: #399dff;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .answer-sheet {
+            background: var(--black);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .answer-row {
+            display: grid;
+            grid-template-columns: 100px 1fr 150px 150px;
+            padding: 15px;
+            border-bottom: 1px solid var(--neon-green);
+            align-items: center;
+        }
+
+        .answer-row:last-child {
+            border-bottom: none;
+        }
+
+        .correct-answer {
+            color: var(--neon-green);
+        }
+
+        .wrong-answer {
+            color: #ff3333;
+        }
+
+        .scroll-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .scroll-container::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 5px;
+        }
+
+        .btn-secondary {
+            background: var(--purple-dark);
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(57, 255, 20, 0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+    </style>
+<script defer data-domain="softskillsmcq.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script></head>
+<body>
+    <div class="container">
+        <header class="animated-border">
+            <h1>BVDU - Soft Skills - MCQ Test</h1>
+            <p>90 Minutes | 30 Questions | Select Any 25</p>
+        </header>
+
+        <div class="tab-container">
+            <div class="tab animated-border active" onclick="showSection('login')">Student Login</div>
+            <div class="tab animated-border" onclick="showSection('register')">Register</div>
+            <div class="tab animated-border" onclick="showSection('forgot')">Forgot Password</div>
+            <div class="tab animated-border" onclick="showSection('admin-login')">Admin Login</div>
+        </div>
+
+        <!-- Login Section -->
+        <div id="login-section" class="section animated-border active">
+            <h2>Student Login</h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="login-email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password">
+            </div>
+            <button onclick="studentLogin()">Login</button>
+            <div id="login-message"></div>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register-section" class="section animated-border">
+            <h2>Student Registration</h2>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="reg-name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="reg-email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="reg-mobile" placeholder="Enter your mobile number">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="reg-password" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" id="reg-confirm-password" placeholder="Confirm your password">
+            </div>
+            <button onclick="registerStudent()">Register</button>
+            <div id="register-message"></div>
+        </div>
+
+        <!-- Forgot Password Section -->
+        <div id="forgot-section" class="section animated-border">
+            <h2>Reset Password</h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="forgot-email" placeholder="Enter your registered email">
+            </div>
+            <div class="form-group">
+                <label>New Password</label>
+                <input type="password" id="forgot-new-password" placeholder="Enter new password">
+            </div>
+            <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="forgot-confirm-password" placeholder="Confirm new password">
+            </div>
+            <button onclick="resetPassword()">Reset Password</button>
+            <div id="forgot-message"></div>
+        </div>
+
+        <!-- Admin Login Section -->
+        <div id="admin-login-section" class="section animated-border">
+            <h2>Admin Login</h2>
+            <div class="form-group">
+                <label>Admin Username</label>
+                <input type="text" id="admin-username" placeholder="Enter admin username">
+            </div>
+            <div class="form-group">
+                <label>Admin Password</label>
+                <input type="password" id="admin-password" placeholder="Enter admin password">
+            </div>
+            <button onclick="adminLogin()">Admin Login</button>
+            <div id="admin-login-message"></div>
+        </div>
+
+        <!-- Test Section -->
+        <div id="test-section" class="section animated-border">
+            <div class="timer animated-border" id="timer">90:00</div>
+            
+            <h2>Soft Skills Assessment Test</h2>
+            <p style="color: var(--neon-green); margin-bottom: 20px;">
+                Select any 25 questions from the 30 available. You must answer exactly 25 questions.
+            </p>
+
+            <div class="stats">
+                <div class="stat-card animated-border">
+                    <div class="stat-value" id="answered-count">0</div>
+                    <div class="stat-label">Questions Answered</div>
+                </div>
+                <div class="stat-card animated-border">
+                    <div class="stat-value">25</div>
+                    <div class="stat-label">Required</div>
+                </div>
+                <div class="stat-card animated-border">
+                    <div class="stat-value" id="remaining-count">25</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+            </div>
+
+            <div class="question-selector animated-border" id="question-selector"></div>
+
+            <div id="question-container" class="scroll-container"></div>
+
+            <div class="navigation">
+                <button class="btn-secondary" onclick="previousQuestion()">Previous</button>
+                <button onclick="nextQuestion()">Next</button>
+                <button onclick="submitTest()" style="background: #ff3333;">Submit Test</button>
+                <button class="btn-secondary" onclick="logoutDuringTest()" style="background: #ff9900; color: var(--black);">Save & Logout</button>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard Section -->
+        <div id="admin-section" class="section animated-border">
+            <h2>Admin Dashboard</h2>
+            
+            <div class="action-buttons">
+                <button onclick="showAdminTab('users')">User Management</button>
+                <button onclick="showAdminTab('results')">Test Results</button>
+                <button onclick="showAdminTab('answer-key')">Answer Key</button>
+                <button onclick="showAdminTab('settings')">Settings</button>
+                <button class="btn-secondary" onclick="adminLogout()">Logout</button>
+            </div>
+
+            <!-- User Management Tab -->
+            <div id="admin-users" class="admin-tab">
+                <h3>Registered Students</h3>
+                <button onclick="downloadUserData()">Download Users CSV</button>
+                <div class="scroll-container" id="users-table"></div>
+            </div>
+
+            <!-- Test Results Tab -->
+            <div id="admin-results" class="admin-tab hidden">
+                <h3>Test Results</h3>
+                <div class="stats">
+                    <div class="stat-card animated-border">
+                        <div class="stat-value" id="total-tests">0</div>
+                        <div class="stat-label">Total Tests Taken</div>
+                    </div>
+                    <div class="stat-card animated-border">
+                        <div class="stat-value" id="pass-count">0</div>
+                        <div class="stat-label">Passed (≥75%)</div>
+                    </div>
+                    <div class="stat-card animated-border">
+                        <div class="stat-value" id="fail-count">0</div>
+                        <div class="stat-label">Failed (&lt;75%)</div>
+                    </div>
+                </div>
+                <button onclick="downloadResultsSummary()">Download Summary CSV</button>
+                <div class="scroll-container" id="results-table"></div>
+            </div>
+
+            <!-- Answer Key Tab -->
+            <div id="admin-answer-key" class="admin-tab hidden">
+                <h3>Answer Key</h3>
+                <div class="scroll-container" id="answer-key-table"></div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="admin-settings" class="admin-tab hidden">
+                <h3>Admin Settings</h3>
+                <div class="form-group">
+                    <label>Change Admin Password</label>
+                    <input type="password" id="admin-new-password" placeholder="New password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="admin-confirm-password" placeholder="Confirm new password">
+                </div>
+                <button onclick="changeAdminPassword()">Update Password</button>
+                <hr style="margin: 30px 0; border-color: var(--neon-green);">
+                <h4>Reset User Account</h4>
+                <div class="form-group">
+                    <label>User Email</label>
+                    <input type="email" id="reset-user-email" placeholder="Enter user email to reset">
+                </div>
+                <button onclick="resetUserAccount()">Reset User Test</button>
+                <div id="settings-message"></div>
+            </div>
+        </div>
+
+        <!-- Test Complete Section -->
+        <div id="complete-section" class="section animated-border">
+            <h2>Test Submitted Successfully!</h2>
+            <div class="alert alert-success">
+                <p style="font-size: 1.2em; margin-bottom: 10px;">Thank you for completing the test!</p>
+                <p>Your answers have been recorded and will be evaluated by the administrator.</p>
+                <p>Results will be announced after all evaluations are complete.</p>
+            </div>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        // Question Bank Data
+        const questions = [
+            {
+                id: 1,
+                scenario: "Advocate Rohan, a seasoned litigator with 15 years of experience, scheduled a crucial conference with Mr. Deshmukh, a first-time litigant facing a property dispute. Mr. Deshmukh, a small business owner with limited legal exposure, arrived at the chamber anxious and confused. Throughout the 45-minute meeting, Advocate Rohan explained the legal strategy using terms like \"prima facie evidence,\" \"caveat emptor,\" \"res judicata,\" and \"inter alia\" without pausing to check if the client understood. When Mr. Deshmukh hesitantly asked what \"plaint\" meant, Rohan responded with \"It\'s the foundational document under Order VII of CPC that initiates the suit,\" and continued discussing procedural timelines citing various Orders and Rules. Mr. Deshmukh nodded politely but his furrowed brow and fidgeting hands suggested confusion. By the end of the meeting, when asked if he had any questions, Mr. Deshmukh simply said, \"I\'ll think about it and get back to you,\" and left the chamber. He never returned and later hired another lawyer who explained everything in simple Hindi. The case was eventually lost due to delayed filing.",
+                question: "Which soft skill was fundamentally missing in Advocate Rohan's approach?",
+                options: ["Empathy", "Communication", "Motivation", "Leadership"],
+                answer: "Communication"
+            },
+            {
+                id: 2,
+                scenario: "Asha, a final-year law student with excellent academic records, secured a competitive internship with Senior Advocate Mehta, a prominent criminal defense lawyer. During her third week, she was assigned to prepare a witness—Mrs. Kulkarni, a 62-year-old shopkeeper who witnessed a theft. The witness preparation session began with Mrs. Kulkarni starting to describe the incident: \"That evening, I was closing my shop around 8 PM, and I noticed...\" Asha immediately interrupted, \"Yes, yes, so you saw the accused near the scene, correct?\" Mrs. Kulkarni tried again, \"Actually, what I wanted to say was that I saw someone, but the street light was—\" Asha cut in again, \"Don\'t worry about the light, just confirm you saw him.\" This pattern continued for 20 minutes, with Asha completing Mrs. Kulkarni\'s sentences, assuming facts, and rushing through the preparation checklist. Later, when Senior Advocate Mehta cross-examined the prepared witness during a mock session, Mrs. Kulkarni mentioned that the person she saw was wearing a blue jacket, while the accused always wore brown. This critical detail—which would have changed the entire defense strategy from alibi to mistaken identity—was completely missed because Asha never let Mrs. Kulkarni finish her initial observation about the poor lighting making it difficult to see colors accurately. What critical soft skill did Asha fail to demonstrate? A. Listening B. Confidence C. Time-Management D. Negotiation 3. Scenario: Advocate Priya worked at a legal aid clinic specializing in women\'s rights. One afternoon, Meena, a 34-year-old domestic violence survivor, arrived at the clinic trembling and barely able to speak. She had finally gathered courage after years of abuse to seek legal help. As Meena sat down, tears rolling down her face, she began, \"I don\'t know where to start... this has been going on for seven years...\" Advocate Priya, who had three more clients waiting and a court hearing in two hours, cut her off professionally: \"I understand this is difficult, but I need specific facts—dates, incidents, witnesses. We don\'t have much time.\" Meena tried to explain the psychological terror and isolation, but Priya kept redirecting: \"Yes, but did he hit you? When exactly? Any medical records?\" When Meena attempted to describe how her husband controlled all her movements and destroyed her self-worth, Priya responded, \"That\'s not really evidence we can use in court. Let\'s focus on physical incidents with proof.\" Meena felt increasingly mechanical, as if she was filling out a form rather than sharing her trauma. After 15 minutes of being repeatedly cut off and redirected to \"factual details only,\" Meena shut down emotionally, said she \"needed to think about it,\" and left. She never returned, and continued living in the abusive situation for another two years before finally seeking help elsewhere. The lawyer who eventually helped her spent the first session just listening, which allowed Meena to open up about critical incidents and patterns that became the foundation of a successful protection order.",
+                question: "What critical soft skill did Asha fail to demonstrate?",
+                options: ["Listening", "Confidence", "Time-Management", "Negotiation"],
+                answer: "Listening"
+            },
+            {
+                id: 3,
+                scenario: "Advocate Priya worked at a legal aid clinic specializing in women\'s rights. One afternoon, Meena, a 34-year-old domestic violence survivor, arrived at the clinic trembling and barely able to speak. She had finally gathered courage after years of abuse to seek legal help. As Meena sat down, tears rolling down her face, she began, \"I don\'t know where to start... this has been going on for seven years...\" Advocate Priya, who had three more clients waiting and a court hearing in two hours, cut her off professionally: \"I understand this is difficult, but I need specific facts—dates, incidents, witnesses. We don\'t have much time.\" Meena tried to explain the psychological terror and isolation, but Priya kept redirecting: \"Yes, but did he hit you? When exactly? Any medical records?\" When Meena attempted to describe how her husband controlled all her movements and destroyed her self-worth, Priya responded, \"That\'s not really evidence we can use in court. Let\'s focus on physical incidents with proof.\" Meena felt increasingly mechanical, as if she was filling out a form rather than sharing her trauma. After 15 minutes of being repeatedly cut off and redirected to \"factual details only,\" Meena shut down emotionally, said she \"needed to think about it,\" and left. She never returned, and continued living in the abusive situation for another two years before finally seeking help elsewhere. The lawyer who eventually helped her spent the first session just listening, which allowed Meena to open up about critical incidents and patterns that became the foundation of a successful protection order.",
+                question: "Which fundamental soft skill was Advocate Priya lacking?",
+                options: ["Goal-Setting", "Empathy", "Assertiveness", "Creativity"],
+                answer: "Empathy"
+            },
+            {
+                id: 4,
+                scenario: "Professor Sharma, an assistant professor teaching Constitutional Law, assigned her 50 students a comprehensive research project on \"Judicial Activism vs. Judicial Overreach\" worth 30% of their semester grade. She gave herself one week to evaluate all submissions, provide detailed feedback, and upload grades before the university deadline. The papers were submitted on Monday morning. Professor Sharma, confident in her ability to grade quickly, spent Monday attending faculty meetings, Tuesday preparing for upcoming lectures, and Wednesday conducting routine classes. By Thursday evening, she glanced at the stack of papers and thought, \"I\'ll start fresh on Friday morning.\" Friday arrived with unexpected committee work and student consultations. By Friday evening, she had graded only 5 papers. Saturday was spent attending a family function. Sunday afternoon, with 45 papers remaining and the Monday 9 AM deadline looming, she panicked and began speed-reading submissions. By 3 AM Monday, exhausted and overwhelmed, she had barely written one-line feedback on most papers like \"Good work\" or \"Needs improvement\" without explaining specific strengths or areas for development. Several papers received grades that didn\'t match her hastily written comments. Students who had worked diligently for weeks felt cheated by the generic feedback that provided no learning value. Three students formally complained to the department head about inadequate evaluation, and Professor Sharma\'s teaching review ratings dropped significantly. She spent the next month dealing with grade appeals and explaining her rushed assessment to the academic committee.",
+                question: "Which soft skill was fundamentally weak in Professor Sharma's professional conduct?",
+                options: ["Stress-Management", "Time-Management", "Persuasion", "Leadership"],
+                answer: "Time-Management"
+            },
+            {
+                id: 5,
+                scenario: "Rakesh, a third-year associate at a corporate law firm, was assigned a critical due diligence project for a client acquiring a manufacturing company worth ₹500 crores. The senior partner, Ms. Khanna, had a brief 10-minute meeting with Rakesh, mentioning that the client needed \"a comprehensive due diligence report on the target company\" before making the acquisition decision. Ms. Khanna expected—but didn\'t explicitly state—that she needed a focused risk assessment identifying deal-breakers, compliance red flags, and material liabilities that could affect valuation or deal structure. Rakesh, eager to impress, spent three weeks meticulously examining every document. He researched the company\'s entire 15-year history, documented minor administrative lapses, traced the provenance of every asset, analyzed routine correspondence, and created detailed timelines of board meetings. His final deliverable was a 70-page chronologically organized report that read like a company biography. It included fascinating but irrelevant details like the founder\'s initial struggles, minor tax disputes from a decade ago that were fully resolved, and complete organizational charts showing reporting structures. However, it buried the critical information in the middle: three ongoing environmental violation notices, two pending labor dispute claims totaling ₹8 crores, and a trademark infringement lawsuit that could invalidate the company\'s primary product line. When Ms. Khanna received the report two days before the deal closure meeting, she had to spend an entire night extracting relevant information and re-organizing it into a risk matrix. The client was frustrated by the delayed analysis, and the deal almost fell through. Ms. Khanna later told Rakesh, \"You worked incredibly hard, but you never asked what success looked like.\"",
+                question: "Which critical soft skill was missing in Rakesh's approach?",
+                options: ["Goal-Setting", "Teamwork", "Negotiation", "Innovation"],
+                answer: "Goal-Setting"
+            },
+            {
+                id: 6,
+                scenario: "Arjun was selected as team captain for the prestigious National Moot Court Competition, an opportunity law students dream about. His team consisted of four members: himself, Priya (excellent researcher), Karan (strong orator), and Neha (skilled at legal drafting). From day one, Arjun, believing his vision was superior, created a rigid work plan without consulting the team. He assigned himself the lead speaker role and distributed remaining tasks unilaterally. When Priya suggested researching international precedents that could strengthen their arguments, Arjun dismissed it: \"I\'ve done moots before; stick to Indian cases as I\'ve outlined.\" When Karan proposed a different opening strategy based on his public speaking experience, Arjun responded, \"I\'m the captain; we\'ll follow my structure.\" He insisted on reviewing and re-writing every section before allowing it to be included in the memorial, creating a bottleneck. Team meetings became one-way briefings where Arjun dictated expectations while others sat silently frustrated. As the deadline approached, the workload became crushing. Priya and Neha, feeling undervalued and micromanaged, began doing only the minimum required. Karan, demoralized by having his oral advocacy ideas consistently rejected, stopped practicing his arguments with enthusiasm. Three days before the competition, Arjun fell ill with viral fever. Having never delegated real responsibility or empowered his team members, there was no backup system. The team scrambled to cover his portions but lacked confidence and cohesion. During the competition, their memorial was disjointed, their oral arguments lacked coordination, and they failed to qualify past the preliminary rounds. Other teams noted their individual talent but poor team dynamics. Post-competition, all three team members stated they would never work with Arjun again, despite recognizing his individual legal knowledge.",
+                question: "Which essential soft skill did the team captain catastrophically lack?",
+                options: ["Leadership", "Listening", "Empathy", "Conflict-Resolution"],
+                answer: "Leadership"
+            },
+            {
+                id: 7,
+                scenario: "An established NGO, \"Legal Literacy Foundation,\" planned a major community legal awareness drive in a rural district covering 15 villages. The event, scheduled for Sunday, aimed to educate villagers about property rights, government schemes, and basic legal procedures. Two enthusiastic student volunteers, Rahul and Anjali, were assigned to coordinate logistics. Both were motivated and hardworking but had never worked together before and received no guidance on collaboration protocols. Rahul, taking initiative, spent Monday and Tuesday designing informative pamphlets in Marathi explaining land rights, women\'s property rights, and consumer protection laws. He coordinated with a local printer and ordered 2,000 copies for pickup on Saturday. Meanwhile, Anjali, equally proactive, spent Wednesday and Thursday arranging transportation, contacting village sarpanches, booking the community hall, and organizing audio equipment. She confirmed with a local bus operator to transport 20 volunteers, legal experts, and materials from Pune to the district headquarters, departing at 6 AM Sunday. Neither Rahul nor Anjali communicated their progress to each other, both assuming the NGO coordinator was monitoring everything. On Saturday evening, Rahul picked up the pamphlets and stored them at his home, planning to bring them to the NGO office Sunday morning at 5:30 AM. Anjali, unaware of this arrangement, assumed all materials were at the NGO office and confirmed the bus would pick everyone up from there at 6 AM sharp. Sunday morning at 5:45 AM, Anjali arrived at the NGO office with other volunteers. No pamphlets. Frantic calls to Rahul revealed he was stuck in traffic 12 kilometers away with all the materials. The bus couldn\'t wait beyond 6:15 AM due to the driver\'s schedule. They departed without the pamphlets, hoping to manage with verbal presentations alone. The event proceeded but lacked the planned educational materials villagers could take home for reference. Several villagers specifically requested printed information about legal procedures, which couldn\'t be provided. The impact of the entire campaign was significantly diminished, and the NGO\'s professional reputation suffered. The coordinator later discovered that a simple shared checklist or one coordination meeting would have prevented the entire fiasco.",
+                question: "Which critical soft skill was absent in this situation?",
+                options: ["Teamwork", "Motivation", "Public Speaking", "Conflict-Management"],
+                answer: "Teamwork"
+            },
+            {
+                id: 8,
+                scenario: "At a mid-sized litigation firm, two junior associates—Ravi and Sneha—both in their second year of practice, were assigned to work together on a complex civil suit involving property partition. The case required preparing a comprehensive written statement with detailed exhibits. From the beginning, tension arose over work distribution. Ravi, who had handled similar cases before, believed he should draft the main legal submissions while Sneha handled the annexures and precedent research. Sneha, who had stronger academic credentials and research skills, felt she should draft the arguments while Ravi compiled documentation. Rather than discussing their respective strengths and creating a collaborative plan, both began working independently on different drafts of the same sections. When they discovered this duplication after three days, instead of resolving the matter professionally, Ravi sent a passive-aggressive email to Sneha copying the senior associate: \"Perhaps we need better coordination. I\'ll handle the drafting since I have practical experience.\" Sneha responded equally tersely: \"Academic rigor matters more than routine experience. I\'ll finalize the draft.\" Their ego battle escalated into cold silence—they stopped communicating entirely, each proceeding with their own version of the brief. Neither attempted to understand the other\'s workload, constraints, or perspective. The senior associate, unaware of the conflict, assumed they were collaborating effectively. Four days before the filing deadline, when both submitted separate drafts, the senior associate was shocked to discover two completely different written statements—one legally sound but poorly researched (Ravi\'s), the other excellently researched but lacking practical court procedure awareness (Sneha\'s). The senior had to spend an entire weekend integrating both drafts, rewriting significant portions, and doing damage control. The client received updates late, filed a complaint about the firm\'s coordination, and the case filing was delayed by two days, requiring an urgent condonation application. Both Ravi and Sneha received formal warnings, and their year-end performance reviews noted \"inability to work collaboratively in team settings.\" The firm subsequently implemented mandatory conflict resolution training for all associates.",
+                question: "Which fundamental soft skill were both associates critically lacking?",
+                options: ["Conflict-Resolution", "Creativity", "Self-Confidence", "Non-Verbal Skills"],
+                answer: "Conflict-Resolution"
+            },
+            {
+                id: 9,
+                scenario: "Advocate Sameer, a competent lawyer practicing in the Bombay High Court, had built a reputation for handling commercial disputes efficiently. On a particularly demanding Wednesday, he had two critical matters listed: at 10:30 AM, a confirmation hearing for an injunction in a trademark infringement case, and at 11:30 AM, arguments on an urgent arbitration-related application. Both matters involved different clients, different facts, and different legal principles. The night before, Sameer prepared thoroughly for both, creating separate folders with color-coded documents. However, on Wednesday morning, unexpected traffic due to heavy rains made him reach court at 10:15 AM instead of his usual 9:30 AM. Rushing through security, he grabbed his files and headed to Courtroom 4. When his first matter was called at 10:35 AM, already flustered by the late arrival, Sameer stood up and began addressing the court. But in his stressed state, he mixed up the two cases. He began citing trademark precedents but incorrectly wove in facts from the arbitration matter—mentioning an \"arbitral tribunal\'s jurisdiction\" in what was actually an injunction hearing about brand confusion. The judge, initially patient, interrupted: \"Counselor, this is the trademark matter, not your arbitration application.\" Embarrassed, Sameer apologized and tried to refocus, but his concentration was shattered. When presenting the timeline of trademark registration, he inadvertently mentioned dates from the other case\'s chronology. The opposing counsel noticed and pointed out the inconsistency, creating doubt about Sameer\'s preparation. After a confused 15 minutes, the judge adjourned the matter, suggesting Sameer \"come back when better prepared.\" Devastated and still stressed, Sameer barely recovered in time for the 11:30 AM matter, where he performed adequately but not at his usual standard. Both clients expressed disappointment—one directly questioned his professionalism. The incident damaged Sameer\'s reputation, and one client moved to another advocate. Reflecting later, Sameer realized that his inability to manage the acute morning stress—rather than lack of preparation—had caused the professional disaster. He hadn\'t employed any stress management techniques, breathing exercises, or composure strategies when the pressure escalated.",
+                question: "Which critical soft skill was absent when Advocate Sameer needed it most?",
+                options: ["Stress-Management", "Teamwork", "Persuasion", "Leadership"],
+                answer: "Stress-Management"
+            },
+            {
+                id: 10,
+                scenario: "During a court-mandated mediation session for a property dispute between two brothers over their late father\'s estate, a third-year law student named Abhishek was assigned to shadow the professional mediator and assist in documentation. The mediator unexpectedly fell ill just before the session, and Abhishek—who had attended mediation training workshops—was asked to facilitate the preliminary discussion until a replacement could be arranged. The two brothers, Vijay and Arun, arrived with their lawyers. The dispute centered on a commercial property in Pune: Vijay wanted to retain it for his business, while Arun wanted immediate sale and equal division of proceeds. Both had valid emotional and financial reasons. Abhishek, influenced by his recent litigation coursework and lacking real mediation experience, approached the session with an adversarial mindset. Instead of exploring creative solutions or understanding underlying interests, he focused on \"who had the stronger legal position.\" When Vijay explained his business would collapse if forced to relocate, Abhishek responded, \"But legally, your brother has equal rights to demand partition and sale under Section 8 of the Partition Act.\" When Arun mentioned his daughter\'s medical emergency requiring immediate funds, Abhishek replied, \"That\'s unfortunate, but legal rights aren\'t contingent on personal circumstances.\" Rather than facilitating a discussion about alternative arrangements—such as Vijay buying out Arun\'s share through installments, renting part of the property to generate cash flow, or refinancing options—Abhishek kept emphasizing that \"litigation would determine the outcome\" and \"the court would order a sale anyway.\" His repeated statements like \"You\'ll both end up in a lengthy court battle\" and \"Litigation is inevitable here\" created a defeatist atmosphere. Both brothers, who had actually come to mediation hoping to preserve their relationship and avoid court, left feeling that compromise was impossible. Vijay\'s lawyer later commented that the brothers were actually close to a potential settlement before the session, but the student mediator\'s litigation-focused approach and inability to explore middle-ground options destroyed any possibility of agreement. The case proceeded to a three-year court battle that consumed both parties\' resources and permanently destroyed their relationship. A professional mediator who later reviewed the case notes identified at least four viable settlement options that were never explored because Abhishek lacked negotiation skills and couldn\'t move beyond adversarial thinking.",
+                question: "Which essential soft skill was critically absent in Abhishek's mediation approach?",
+                options: ["Negotiation", "Listening", "Motivation", "Time-Management"],
+                answer: "Negotiation"
+            },
+            {
+                id: 11,
+                scenario: "Kunal, a law graduate with decent academic credentials, joined Advocate Desai\'s chamber as a trainee advocate. The chamber handled a mix of civil, criminal, and family law matters. Like all junior trainees, Kunal was assigned foundational tasks essential to legal practice: drafting routine applications, preparing case chronologies, maintaining case files, researching precedents, and visiting courts to check case listings and file routine matters. These tasks, while unglamorous, were crucial learning experiences that would build his procedural knowledge and court practice foundation. However, Kunal harbored romanticized notions about legal practice based on courtroom dramas. He wanted to immediately argue matters, cross-examine witnesses, and handle high-profile cases. When assigned to draft a simple interim application for adjournment, Kunal procrastinated for three days, claiming it was \"too basic\" and \"not intellectually challenging.\" When asked to prepare a chronological list of events for a family dispute case, he did a superficial job, missing crucial dates, because he found it \"boring clerical work.\" When the senior advocate assigned him case law research on a nuanced evidence issue, Kunal spent barely two hours and produced a generic three-page summary copied from a legal database, adding, \"These tasks don\'t really matter for real lawyering.\" His repeated attitude of dismissiveness and procrastination created a bottleneck in the chamber\'s workflow. The senior advocate had to either redo Kunal\'s incomplete work or assign it to other juniors who were already overburdened. Crucial applications were delayed, case files were disorganized, and court matters had to be adjourned due to inadequate preparation—all because Kunal considered foundation-building work \"beneath him.\" After three months, when a partner offered to let Kunal observe an important cross-examination, he refused at the last minute, saying he \"had other commitments,\" though he was actually just uninterested in preparing. His lack of intrinsic drive and disdain for the learning process frustrated everyone. Eventually, Advocate Desai had a frank conversation with Kunal about professional attitude. When Kunal showed no change, he was asked to leave the chamber within six months. Three other juniors who joined alongside Kunal and enthusiastically handled the same \"routine\" tasks developed strong foundations and progressed to handling independent matters within a year. Kunal\'s lack of self-motivation stunted not just his growth but affected the entire team\'s productivity.",
+                question: "Which soft skill was fundamentally missing in Kunal's professional approach?",
+                options: ["Motivation", "Goal-Setting", "Empathy", "Negotiation"],
+                answer: "Motivation"
+            },
+            {
+                id: 12,
+                scenario: "A mid-sized pharmaceutical company hired Manoj, a recently qualified corporate lawyer, as their in-house legal officer. One of his first significant responsibilities was selecting a vendor for the annual compliance audit—a critical process ensuring the company met all regulatory requirements under the Drugs and Cosmetics Act, labor laws, and environmental regulations. Manoj received proposals from two reputed audit firms. Firm A had extensive pharmaceutical industry experience, charged ₹4.5 lakhs, and could start immediately. Firm B was slightly cheaper at ₹4 lakhs but had limited pharma expertise, though strong general compliance credentials. Both firms submitted detailed proposals with timelines, methodology, and references. All documents needed for an informed decision were on Manoj\'s desk by Monday morning. His manager expected a decision by Wednesday so the audit could commence the following week, as the regulatory filing deadline was six weeks away. Monday passed with Manoj reading both proposals multiple times, creating comparison charts, but reaching no conclusion. Tuesday, instead of analyzing the documents and making a call, he began seeking opinions—asking the CFO, the operations head, the HR manager, and even the administration assistant what they thought. Each person offered different perspectives based on their departmental priorities. Rather than synthesizing this input and deciding, Manoj became more confused. Wednesday came and went with no decision. Thursday, his manager asked for an update. Manoj responded, \"I\'m still evaluating; I want to be absolutely certain we choose correctly.\" Friday, the manager pressed harder, reminding him of the regulatory timeline. Manoj requested \"just a few more days to consult with the accounts department.\" By the following Tuesday—eight working days after receiving the proposals—Manoj still hadn\'t decided. He had now consulted twelve different people, created elaborate comparison spreadsheets, and requested additional information from both firms that was largely irrelevant to the core decision criteria. His manager, exasperated, finally made the decision herself, selecting Firm A. However, due to the eleven-day delay, Firm A\'s start date was pushed back, compressing the audit timeline. The company had to pay an expedited processing fee of ₹1.5 lakhs to meet the regulatory deadline. Additionally, the compressed schedule meant some processes were reviewed less thoroughly than planned. The entire delay was caused not by lack of information but by Manoj\'s inability to make a timely decision despite having all necessary data. His excessive consultation and analysis paralysis demonstrated a critical professional weakness that concerned the management team.",
+                question: "Which vital soft skill was Manoj fundamentally lacking?",
+                options: ["Decision-Making", "Listening", "Leadership", "Body-Language Awareness"],
+                answer: "Decision-Making"
+            },
+            {
+                id: 13,
+                scenario: "Rohan, a final-year law student with excellent written examination scores and a strong GPA, appeared for his final viva voce examination—an oral assessment worth 25% of his total marks in Constitutional Law. He had prepared thoroughly, revising all major topics, landmark judgments, and constitutional amendments. The viva was conducted by a three-member panel including the head of department. When Rohan entered the examination room, he walked in with shoulders hunched, eyes downcast, and took his seat without making eye contact with any examiner. Throughout the 20-minute viva, despite providing correct and detailed answers, his nonverbal communication contradicted his knowledge. When asked about the Kesavananda Bharati case and the basic structure doctrine, Rohan provided an excellent explanation covering the historical context, key judgments, and contemporary relevance. However, while explaining, he stared at the table, fidgeted with his pen, and his voice wavered. When asked to elaborate on the application of Article 14 in recent Supreme Court judgments, Rohan again answered accurately, citing relevant cases and legal principles, but his body language—slouching, avoiding eye contact, repeatedly touching his face, and shifting in his chair—projected uncertainty and discomfort. One examiner specifically asked about his opinion on a controversial judgment. Rohan\'s verbal response was well-reasoned and confident, but his physical presentation—clasping and unclasping his hands, avoiding direct eye contact, speaking toward the floor, and apologizing unnecessarily (\"I\'m sorry, but I think...,\" \"Maybe I\'m wrong, but...\")—made him appear unsure and unconvincing. After the viva, during the evaluation discussion, one examiner commented, \"His knowledge is solid, but he presents himself like he doesn\'t believe his own answers.\" Another added, \"In practice, clients and judges wouldn\'t find him credible with that body language, regardless of his legal knowledge.\" Despite his correct answers, Rohan received only 16 out of 25 marks—lower than peers with slightly weaker content but stronger presentation skills. The written feedback noted: \"Strong substantive knowledge but lacks confidence in presentation; needs to work on professional demeanor and nonverbal communication skills essential for court practice.\" Rohan was confused, thinking, \"I answered everything correctly, why did I score lower?\" He failed to realize that in professional settings, how you communicate is as important as what you communicate.",
+                question: "Which critical soft skill did Rohan fail to demonstrate despite his strong knowledge?",
+                options: ["Body-Language", "Motivation", "Empathy", "Teamwork"],
+                answer: "Body-Language"
+            },
+            {
+                id: 14,
+                scenario: "During a Criminal Procedure Code course assignment, law student Priya was tasked with analyzing the case file of a robbery investigation to assess the strength of the prosecution\'s evidence. The case file included: (1) FIR filed by the victim naming the accused, (2) Police investigation report concluding the accused was guilty based on victim identification, (3) Three witness statements—two supporting the victim\'s account and one stating they saw nothing, (4) Recovery of stolen items from the accused\'s residence, (5) Accused\'s statement denying involvement and claiming he was at a wedding during the incident. Priya, eager to complete the assignment quickly, read the FIR and police report and immediately concluded: \"The accused is clearly guilty. The victim identified him, police recovered stolen goods from his house, and two witnesses support the prosecution. Open-and-shut case.\" She submitted a five-page analysis arguing for conviction based on the prosecution narrative. However, Priya failed to engage in critical analysis. She never questioned: Why did the third witness, who was at the same location, see nothing? Why was there a 12-hour gap between the incident time (11 PM) and FIR filing (11 AM next day)? Were the two supporting witnesses actually present, or did they only hear about it from the victim? How were the stolen items \"recovered\"—was there a proper search warrant and panchnama? Was the wedding alibi investigated at all? Were there any CCTV cameras in the area that could corroborate or contradict any narrative? The case file actually contained several red flags that a critical thinker would have identified: The witness statements had identical phrasing suggesting they might have been tutored. The recovery panchnama was vague about the exact location and circumstances. The accused\'s alibi mentioned 50 wedding attendees, but police records showed no attempt to verify this. The victim had a prior property dispute with the accused\'s family—a potential motive for false implication. During class discussion, the professor presented this case as an example of confirmation bias in criminal justice. She explained how accepting the police narrative without scrutiny leads to wrongful convictions. Other students who had analyzed critically identified the evidentiary gaps, contradictions, and alternative theories that Priya completely missed. The professor noted: \"A good lawyer doesn\'t just accept the official narrative. Critical thinking means questioning assumptions, seeking corroboration, identifying contradictions, and testing alternative explanations. Priya, you would have prosecuted an innocent person or failed to properly defend a client because you never questioned what you were told.\" This feedback was a wake-up call for Priya about the difference between reading comprehension and critical analysis.",
+                question: "Which essential soft skill was absent in Priya's approach to case analysis?",
+                options: ["Critical-Thinking", "Goal-Setting", "Leadership", "Negotiation"],
+                answer: "Critical-Thinking"
+            },
+            {
+                id: 15,
+                scenario: "A legal services clinic in a semi-urban area received multiple complaints from residents of the Saraswati Housing Society about severe water contamination affecting nearly 200 families. The residents reported foul-smelling water, visible pollutants, and several cases of waterborne diseases including typhoid and gastroenteritis, particularly among children and elderly residents. The clinic director assigned Karthik, a second-year law intern, to handle the matter. Karthik, enthusiastic about the opportunity, immediately began documenting the problem in detail. He interviewed 25 affected families, photographed discolored water samples, collected medical reports showing disease clusters, researched the municipal water supply system, identified that an illegal factory was discharging untreated effluents into the water pipeline, and compiled a comprehensive 40-page report documenting every aspect of the contamination issue. The report was meticulously organized with sections on: historical water quality data, interviews with affected residents, medical impact statistics, environmental testing reports (requested from an NGO), details about the polluting factory, maps showing the pipeline network, and relevant legal provisions under the Water (Prevention and Control of Pollution) Act and municipal regulations. Karthik\'s report was thorough, well-researched, and clearly demonstrated a serious public health crisis and environmental law violation. However, after submitting this detailed problem documentation, Karthik did nothing further. He took no initiative to propose remedial action. He didn\'t draft a legal notice to the municipal corporation, didn\'t suggest filing a public interest litigation, didn\'t recommend approaching the State Pollution Control Board, didn\'t organize a community meeting to galvanize collective action, and didn\'t coordinate with local media to create public pressure. When the clinic director asked, \"So what\'s your recommendation for addressing this?\", Karthik looked confused and said, \"I\'ve documented the entire problem. Isn\'t that what you wanted?\" The director responded, \"Documentation is step one. But what do we DO about it? Where\'s your action plan? Legal remedies? Administrative complaints? Community mobilization strategy?\" Karthik had no answer. The water contamination continued for another three months until a more proactive intern developed a multi-pronged strategy: filing a complaint with the Pollution Control Board, mobilizing residents to collectively petition the municipal commissioner, engaging with local media for coverage, and preparing for potential PIL if administrative remedies failed. The factory was eventually shut down, but the delay cost the community—two more children were hospitalized with severe gastroenteritis during those three months. Karthik\'s inability to move beyond problem documentation to solution development demonstrated a critical professional gap.",
+                question: "Which crucial soft skill was missing in Karthik's approach?",
+                options: ["Problem-Solving", "Stress-Management", "Empathy", "Teamwork"],
+                answer: "Problem-Solving"
+            },
+            {
+                id: 16,
+                scenario: "Anjali, a law graduate with excellent academic credentials including a gold medal in her LL.B. program, applied for a junior associate position at the Bombay High Court office of a prominent Senior Advocate. Her written application, research samples, and mock drafting exercise were impressive, leading to a final interview with the Senior Advocate and two senior associates. Anjali had prepared extensively—she reviewed the firm\'s major cases, researched the partners\' backgrounds, anticipated potential questions, and even practiced mock interviews with friends. Her knowledge and preparation were solid. However, during the actual interview, Anjali\'s lack of self-confidence undermined her excellent credentials. When asked about her research interests, she began with, \"I\'m sorry, I\'m not sure if this is the right answer, but...\" When discussing her academic achievements, she downplayed them: \"I know gold medal isn\'t that big a deal, many students get it...\" (which was factually incorrect—only one student per year received it). When the Senior Advocate asked her opinion on a recent Supreme Court judgment, Anjali provided an insightful analysis but prefaced it with, \"I might be completely wrong, but...\" and ended with, \"Sorry, I\'m probably missing something important.\" Throughout the 30-minute interview, she apologized unnecessarily at least twelve times for things that didn\'t warrant apology. Her voice was barely audible, requiring interviewers to repeatedly ask her to speak up. When offered water, she said, \"Sorry for the trouble,\" and when her phone accidentally vibrated once despite being on silent, she profusely apologized for three minutes, derailing the conversation. The interviewers asked about her experience handling complex legal research, and Anjali—despite having produced an excellent 30-page research memo during her internship—downplayed it: \"It was okay, nothing special, others probably did better...\" When asked if she could handle the pressure of High Court practice, instead of confidently affirming her abilities, she said uncertainly, \"I\'ll try my best... I hope I don\'t disappoint you... I might need extra guidance initially... Sorry if that\'s a problem...\" After the interview, during the evaluation meeting, the Senior Advocate said, \"Her research skills and legal knowledge are excellent, perhaps the strongest candidate we\'ve interviewed. But I\'m concerned about putting her in front of clients. She apologizes for breathing. Clients want a lawyer who projects confidence and capability, not someone who constantly second-guesses herself. How will she handle aggressive opposing counsel or commanding court proceedings?\" The panel agreed—despite being the most qualified candidate on paper, Anjali\'s lack of self-confidence raised serious doubts about her suitability for the high-pressure environment of High Court practice. She was not selected. The position went to a candidate with slightly weaker credentials but stronger self-presentation skills. Ironically, Anjali was more capable than she believed, but her inability to project appropriate professional confidence cost her the opportunity.",
+                question: "Which soft skill critically undermined Anjali's interview performance?",
+                options: ["Self-Confidence", "Listening", "Decision-Making", "Creativity"],
+                answer: "Self-Confidence"
+            },
+            {
+                id: 17,
+                scenario: "Varun, a third-year law student, was completing a corporate law internship at a firm specializing in commercial contracts and transactions. The supervising partner assigned him a task: drafting an arbitration clause for a complex multi-party construction contract involving a real estate developer (primary party), two construction contractors, an architecture firm, and an engineering consultant. The project was a ₹200 crore commercial complex with overlapping responsibilities, potential disputes across multiple interfaces (design, construction, payments, timelines), and parties located in three different states. The partner expected—though didn\'t explicitly spell out—that Varun would think creatively about dispute resolution mechanisms suitable for this complex arrangement. This required considering: how to handle disputes between different party combinations (developer vs. contractor, contractor vs. architect, three-way disputes), whether to use a single arbitration clause or tiered dispute resolution, the seat and applicable laws given multi-state parties, timelines for different types of disputes, provisions for technical expert determinations for engineering issues, and mechanisms to avoid parallel proceedings. Instead of analyzing the specific complexities and customizing a solution, Varun took the easy route. He searched online for \"arbitration clause template,\" found a standard single-page clause from a basic commercial contract template, changed the party names, and submitted it without modification. The clause he submitted was generic: \"Any dispute arising under this Agreement shall be referred to arbitration in accordance with the Arbitration and Conciliation Act, 1996, in Mumbai before a sole arbitrator mutually appointed by the parties.\" This templated clause completely failed to address the multi-party nature of the contract—how would four different parties \"mutually appoint\" one arbitrator if they had conflicting interests? It provided no mechanism for handling disputes between subsets of parties (e.g., if the contractor and architect disputed, did that require the developer\'s participation?). It ignored jurisdictional complications arising from parties being located in Maharashtra, Gujarat, and Karnataka. It failed to incorporate any expedited procedures for time-sensitive construction disputes or technical expert determinations for engineering disagreements. When the partner reviewed the draft, she immediately recognized the generic template. During feedback, she asked Varun, \"Did you consider how this multi-party structure creates unique dispute resolution challenges? Did you think about whether one arbitration framework fits all potential dispute types here?\" Varun admitted he hadn\'t thought beyond finding a standard clause. The partner explained, \"Legal practice isn\'t about copy-pasting templates. It requires creative thinking—analyzing specific contexts and customizing solutions. This contract needed a sophisticated tiered dispute resolution clause, possibly separate mechanisms for different dispute types, and careful consideration of multi-party arbitration complexities. Your template approach would have created chaos when disputes inevitably arose.\" She had to redraft the entire clause herself, and Varun\'s evaluation noted \"lacks creative problem-solving; relies on templates without contextual adaptation.\"",
+                question: "Which soft skill was critically absent in Varun's approach to this assignment?",
+                options: ["Creativity", "Empathy", "Leadership", "Teamwork"],
+                answer: "Creativity"
+            },
+            {
+                id: 18,
+                scenario: "Neha joined a reputed law firm as a junior associate, working under a senior partner known for his expertise but also his domineering personality and resistance to feedback. Three months into her position, Neha was assigned to assist on a high-stakes injunction application in an intellectual property dispute. The client was seeking an urgent injunction to prevent a competitor from launching a product allegedly infringing their patent. The hearing was scheduled for the following week. While reviewing the senior partner\'s draft affidavit over the weekend, Neha discovered significant errors: the patent number cited was incorrect (a transcription error from the client\'s documents), two dates in the chronology were wrong (which could undermine credibility under cross-examination), and a critical exhibit reference was missing, which would leave the court unable to verify key factual claims. Additionally, the partner had characterized a Supreme Court precedent in a way that was slightly misleading—the judgment actually had specific qualifying conditions that weakened its applicability to their case. Neha spent Sunday evening verifying everything multiple times using the original patent office records, court judgments, and client documents. She was certain about the errors. Monday morning, she sat at her desk, anxious and conflicted. She knew these mistakes could jeopardize the application and embarrass the firm in court. However, she feared the partner\'s reaction—he was known for being defensive about his work and had previously snapped at another junior who pointed out a mistake. Neha drafted an email highlighting the issues, then deleted it. She walked to his office door twice but retreated both times. She considered mentioning it casually but worried about appearing disrespectful or overly critical. By Tuesday, the document was being finalized for filing. Neha\'s anxiety grew, but she remained silent, rationalize her inaction: \"Maybe I\'m wrong,\" \"He has 20 years of experience,\" \"It\'s not my place to question a senior partner,\" \"What if he gets angry and my career suffers?\" She told herself that surely the partner would catch the mistakes during final review. Wednesday morning, the application was filed with all the errors intact. Thursday\'s court hearing went disastrously. The opposing counsel immediately identified the incorrect patent number and used it to argue that the petitioner lacked adequate knowledge of their own patent. The judge questioned the date discrepancies, expressing concern about the affidavit\'s reliability. The missing exhibit reference forced the judge to adjourn the matter, stating, \"I cannot grant urgent relief without seeing the documentary evidence you claim exists.\" The client was furious at the adjournment and the courtroom embarrassment. The senior partner, reviewing what went wrong, discovered the errors and asked the team, \"Did anyone review this?\" Neha, feeling guilty, remained silent. Later, another associate who had briefly seen the draft mentioned that Neha had been checking the patent records Sunday night. The partner confronted Neha: \"Did you find errors?\" Neha admitted she had. \"Why didn\'t you tell me?\" Neha stammered, \"I... I wasn\'t sure if I should...\" The partner, despite his ego, responded seriously: \"I\'d rather be corrected by my junior in my office than humiliated by opposing counsel in court. Your job includes pointing out errors, regardless of who made them. Your silence cost our client and our firm\'s reputation.\" Neha\'s inability to assertively communicate critical information—despite having accurate knowledge and the responsibility to speak up—demonstrated a significant professional weakness that had real consequences.",
+                question: "Which crucial soft skill did Neha lack in this situation?",
+                options: ["Assertiveness", "Negotiation", "Empathy", "Motivation"],
+                answer: "Assertiveness"
+            },
+            {
+                id: 19,
+                scenario: "Rajesh, a 42-year-old compliance officer with 15 years of experience, worked for a mid-sized pharmaceutical manufacturing company. His role involved ensuring the company adhered to all regulatory requirements under the Drugs and Cosmetics Act, labor laws, environmental regulations, and safety standards. Rajesh had developed a comprehensive compliance system over the years—detailed checklists, quarterly audit procedures, documentation formats, and reporting templates that had served the company well. He took pride in his methodical, structured approach. In July, the government introduced significant amendments to pharmaceutical manufacturing regulations, implementing new requirements for documentation, batch testing protocols, electronic record-keeping systems, and enhanced reporting to regulatory authorities. The changes were substantial and required companies to transition from paper-based systems to integrated electronic compliance management within six months. The company\'s management organized a training session on the new regulations and invested in new compliance software. Rajesh attended the training but approached it with resistance. Throughout the sessions, he repeatedly commented, \"The old system worked fine for 15 years, why change it now?\" and \"Electronic systems will just create more problems than they solve.\" When the software vendor demonstrated the new electronic batch documentation system, Rajesh insisted, \"Our paper registers are more reliable; what if the system crashes?\" Despite management\'s clear directive to transition to the new system, Rajesh continued using his old paper-based checklists and manually maintained registers. When the IT department asked him to input data into the new software, he did so reluctantly and incompletely, continuing to maintain his \"reliable\" parallel paper records. When junior staff asked about following the new protocols, Rajesh told them, \"Just do it the old way; I\'ll handle any questions.\" He created confusion by effectively running two systems—the official new electronic system (inadequately maintained) and his unofficial old paper system (thoroughly maintained). His resistance to change created a bottleneck. The company\'s compliance transition lagged significantly behind the regulatory deadline. Three months before the deadline, during a pre-audit internal assessment, the management discovered that the electronic compliance system—which would be the basis for regulatory inspection—was incomplete and inadequately maintained because Rajesh had been sabotaging it through non-cooperation. Urgent remedial work was required. The company had to hire external consultants to rapidly complete the transition, costing an additional ₹8 lakhs. The management had to assign a younger compliance assistant to lead the electronic system implementation while sidelining Rajesh, who felt humiliated. Eventually, Rajesh was moved to a reduced role focused only on legacy documentation closure. A major opportunity to lead the company\'s compliance modernization was lost because Rajesh couldn\'t adapt to changed regulatory requirements. His expertise became increasingly irrelevant as the industry moved forward, and his career stagnated while colleagues who embraced change progressed. Two years later, Rajesh regretted his rigidity, realizing that adaptability wasn\'t just about technology—it was about remaining professionally relevant in a changing environment.",
+                question: "Which critical soft skill was Rajesh fundamentally lacking?",
+                options: ["Adaptability", "Stress-Management", "Teamwork", "Listening"],
+                answer: "Adaptability"
+            },
+            {
+                id: 20,
+                scenario: "Megha, a final-year law student with exceptional research and writing skills, was part of her college\'s moot court team selected for the National Moot Court Competition. Her written memorial—the document containing legal arguments, precedent analysis, and statutory interpretation—was rated among the top three submissions in the preliminary round. It demonstrated sophisticated legal reasoning, comprehensive research, and excellent writing. Megha\'s teammates and faculty coach were confident she would excel in the oral rounds. However, Megha had a secret anxiety she had managed to hide throughout her academic career—she had severe public speaking fear. She had avoided presentations in class by volunteering for written assignments instead, had never participated in debates or seminars, and felt physically ill at the thought of speaking before audiences. She convinced herself that her strong memorial would carry her through and that \"speaking in court is different; I\'ll manage when the time comes.\" The oral rounds arrived, held in a simulated courtroom with three judges (experienced advocates), opposing counsel, and an audience of about 50 students and faculty members. Megha\'s turn came to present her team\'s arguments on a constitutional law issue she had personally researched for three months. She knew the subject thoroughly. As she stood to begin, her heart raced, her hands trembled, and her mouth went dry. She began speaking, but her voice was barely a whisper. One judge said, \"We can\'t hear you; please speak up.\" Megha tried to raise her volume but her voice cracked. She looked at her notes, but the words blurred as panic set in. She attempted to explain the Article 14 application to her case but lost her train of thought mid-sentence and stood silent for 20 seconds—an eternity in courtroom time. The judges waited patiently. Megha restarted but was now speaking rapidly, rushing through complex legal principles without pausing for emphasis or clarity. When a judge asked a clarificatory question about a precedent she had cited, Megha—who knew the answer perfectly well—froze completely. She stammered, \"I... the case... it\'s about...\" and then went silent again. Her teammate tried to support her, but the rules required her to respond. After an agonizing minute, she managed a fragmented, incoherent response that didn\'t address the question. Her allotted 15 minutes felt like torture. She stumbled through her remaining arguments mechanically, making no eye contact with judges, reading directly from notes in a monotone, and failing to engage with questions. When her time ended, she sat down, devastated, knowing she had failed to present even a fraction of the excellent legal analysis she had prepared. The judges\' feedback was consistent: \"Excellent memorial, but oral advocacy was significantly weak. Unable to articulate arguments effectively, poor voice projection, lack of confidence, couldn\'t handle questions.\" Her team didn\'t advance past that round, and Megha blamed herself. The faculty coach told her gently, \"You have the knowledge and research skills to be an excellent lawyer, but you must develop public speaking confidence. Avoiding it throughout college caught up with you.\" Megha realized that her avoidance strategy had created a critical professional gap that would limit her career options in litigation unless she actively worked to develop this skill.",
+                question: "Which essential soft skill did Megha critically lack despite her strong legal knowledge?",
+                options: ["Public Speaking", "Negotiation", "Motivation", "Teamwork"],
+                answer: "Public Speaking"
+            },
+            {
+                id: 21,
+                scenario: "A complex land dispute case involving boundary demarcation between two adjacent properties in a rural area of Maharashtra was being handled by a law firm. The dispute centered on the exact location of the boundary line—the plaintiff claimed the defendant had encroached 15 feet into their property by constructing a wall, while the defendant insisted the wall was entirely on their own land. Historical revenue records and survey maps were ambiguous due to changes in land measurement systems over 40 years. A site inspection was critical to gathering evidence. The senior advocate assigned Suresh, a second-year intern with keen interest in property law, to accompany the firm\'s surveyor and local revenue official for the site visit and document observations that could support their client\'s case. Suresh was briefed: \"Pay attention to everything—physical boundaries, old structures, natural landmarks, anything that might indicate the historical boundary line.\" Suresh arrived at the site on a Saturday morning, equipped with a camera, notepad, and copies of old survey maps. The inspection lasted 90 minutes. Suresh photographed the disputed wall from multiple angles, documented the measurements taken by the surveyor, noted the statements made by both parties who were present, and sketched a rough layout. He felt he had done a thorough job. However, Suresh failed to observe several critical details that were physically present at the site: There was an old boundary stone—a carved granite marker commonly used in that region 50 years ago—partially buried in soil about 8 feet from the disputed wall, clearly visible but displaced from its original position, likely moved during construction. This stone, if authenticated, would have been decisive evidence of the original boundary location. Suresh walked past it three times without noticing it. There were remnants of an old fence foundation—brick pieces in a linear pattern—visible in the undergrowth parallel to the current wall but offset by approximately 12 feet. This could have indicated where the original boundary fence stood. Suresh didn\'t notice it. A large old neem tree near the boundary had distinctive markings—old cuts in the bark that local villagers traditionally made to mark property corners. An elderly resident pointed this out to the revenue official while Suresh was busy photographing the wall. Suresh didn\'t hear or document this conversation. The defendant\'s wall had a construction date subtly marked in the cement—\"2018\"—visible on the base where the plaster had chipped off. This would have confirmed the timeline of construction. Suresh didn\'t spot it. When Suresh returned and submitted his documentation, the senior advocate asked, \"Did you notice any old boundary markers, stones, or remnants of earlier structures?\" Suresh said no. Two weeks later, during a follow-up visit, the client\'s surveyor discovered the boundary stone and old fence remnants. These became crucial evidence. The senior advocate was frustrated: \"These were right there in plain sight. This is why I sent you—to observe everything, not just take photographs of the obvious wall. We could have built our entire case around that boundary stone two weeks ago.\" The missed observations delayed case strategy development and nearly cost the client their best evidence. Suresh learned that physical presence at a site is worthless without actual observation skills—the ability to notice details, recognize potentially significant evidence, and mentally connect physical observations to legal issues.",
+                question: "Which soft skill was critically absent during Suresh's site inspection?",
+                options: ["Observation", "Stress-Management", "Leadership", "Time-Management"],
+                answer: "Observation"
+            },
+            {
+                id: 22,
+                scenario: "Kavita, a 24-year-old law graduate from a semi-urban background, volunteered for a month-long legal awareness camp organized by a legal aid NGO in rural villages of Satara district. The camp aimed to educate villagers—many of whom were illiterate or semi-literate—about their basic legal rights regarding land ownership, government welfare schemes, domestic violence protection, and consumer rights. The NGO specifically recruited young lawyers willing to engage with rural communities, conduct informal education sessions, and provide basic legal counseling. Kavita had adequate legal knowledge and had performed well academically in her LL.B. program. However, she came from an urban educational environment and had limited experience interacting with rural communities or speaking before unfamiliar audiences. On the first day, the team of six volunteers arrived at a village community center where about 40 villagers—mostly women and elderly farmers—had gathered. The NGO coordinator introduced the team and asked each volunteer to lead one session on different topics. Kavita was assigned to explain women\'s property rights under Hindu Succession Law, a topic she understood well. However, as her turn approached, Kavita became increasingly anxious. She watched other volunteers confidently engaging with the audience, using local language colloquialisms, encouraging questions, and building rapport. When her turn came, Kavita walked to the front hesitantly. Facing the audience of rural villagers—whose life experiences were vastly different from hers—her confidence evaporated. She began speaking in formal, textbook legal language that was incomprehensible to most villagers. After two minutes, seeing confused faces, she became more nervous and started speaking faster. A few villagers asked questions in local Marathi dialect, but Kavita, intimidated and unsure how to simplify complex legal concepts, gave vague answers like \"it depends on the specific situation\" without practical explanations. After a painful 10 minutes, she concluded abruptly and returned to her seat, visibly uncomfortable. For the remaining three weeks of the camp, despite being assigned to various sessions, Kavita consistently avoided taking the lead role. When the coordinator asked her to conduct sessions, she made excuses: \"Maybe someone else should handle this,\" or \"I\'m not sure I can explain it properly to them,\" or \"Can I just assist instead?\" She relegated herself to background tasks—arranging materials, distributing pamphlets, noting attendance—while other volunteers, some with less legal knowledge but more confidence, successfully conducted engaging sessions that genuinely educated and empowered villagers. In one instance, a village woman specifically requested to speak to \"the young lady lawyer\" (referring to Kavita) about a property dispute with her brother. Kavita, instead of seeing this as an opportunity, requested another volunteer to handle it, claiming \"they\'d be more helpful.\" The volunteer, touched by Kavita\'s lack of confidence rather than capability, later told her, \"You know the law better than I do. These villagers just need someone to listen and explain simply. They\'re not judging you—they\'re grateful for help. Your fear is holding back people who need your knowledge.\" By the end of the camp, Kavita had contributed minimally to the actual mission despite having valuable expertise. The coordinator\'s feedback noted: \"Strong legal knowledge but lack of self-confidence prevented effective community engagement. Needs confidence-building to translate knowledge into practical impact.\" Kavita realized that her inability to overcome self-doubt and project confidence in unfamiliar settings had rendered her knowledge useless to the very people who needed it most.",
+                question: "Which soft skill fundamentally limited Kavita's effectiveness despite her legal knowledge?",
+                options: ["Self-Confidence", "Negotiation", "Listening", "Empathy"],
+                answer: "Self-Confidence"
+            },
+            {
+                id: 23,
+                scenario: "Amit, a junior associate at a law firm, was assisting in a cheque bounce case under Section 138 of the Negotiable Instruments Act. The client, a small-scale manufacturer, had issued goods worth ₹12 lakhs to a buyer on credit. The buyer issued a post-dated cheque that bounced due to \"insufficient funds.\" The client filed a criminal complaint and wanted to pursue full legal proceedings, including criminal trial that could take 2-3 years. However, the senior partner, after assessing the situation, believed that settlement was in the client\'s best interest. The buyer had expressed willingness to repay the amount in installments with 12% interest over one year, taking full responsibility and apologizing for the payment failure. This settlement would guarantee payment within 12 months, whereas a criminal trial would take years with uncertain recovery prospects even if the client won. The partner asked Amit to meet with the client, explain the practical advantages of settlement, and persuade him to accept the offer. Amit met the client at the firm\'s conference room. The client, still angry about the bounced cheque and feeling betrayed, initially stated, \"I want him punished. File the maximum criminal case.\" Rather than empathetically acknowledging the client\'s feelings and then strategically guiding him toward the practical benefits of settlement, Amit took a rigid, mechanical approach. He pulled out a printed copy of Section 138, placed it on the table, and began reading aloud: \"Section 138 states that dishonor of cheque is punishable with imprisonment up to two years or fine up to twice the amount, or both.\" He continued reading various legal provisions, case timelines, and procedural requirements in a monotonous voice. The client listened for a few minutes, then asked, \"So I can get both the money and see him jailed?\" Amit, still in lecture mode, responded, \"Well, under Section 147, compounding is allowed...\" and continued reading statutory provisions about compromise. When the client expressed concern about waiting years for trial, Amit simply said, \"Yes, trials take time. That\'s how the system works,\" offering no persuasive framing of why settlement was advantageous. He made no attempt to: paint a picture of the guaranteed recovery within one year versus uncertain recovery after years of litigation, discuss the emotional and financial costs of prolonged trial, highlight that even if the client won the criminal case the actual recovery would require separate execution proceedings, or build trust by acknowledging the client\'s valid frustration while guiding him toward the practical solution. Instead, Amit continued mechanically explaining legal provisions. After 30 minutes, the client, confused and frustrated by the legal jargon and lack of clear advice, said, \"I need to think about this,\" and left. He didn\'t accept the settlement offer. The case proceeded to trial, which stretched for 28 months. The client had to attend court 14 times, spending time away from his business. Eventually, the accused was convicted and ordered to pay the amount plus fine. However, enforcement took another 8 months. Total time from complaint to actual recovery: 3 years. The client received his money finally, but told the firm later, \"I wish someone had made me understand the settlement option better. I lost three years of business focus and so much stress for the same result I could have had in one year.\" The senior partner later told Amit: \"Your job wasn\'t to read the law to him—he\'s not appearing for an exam. Your job was to persuade him that settlement served his interests better. Persuasion requires empathy, storytelling, relating legal options to his business realities, and building confidence in your recommendation. You gave him information but failed to influence his decision.\"",
+                question: "Which critical soft skill was absent in Amit's client interaction?",
+                options: ["Persuasion", "Time-Management", "Empathy", "Stress-Management"],
+                answer: "Persuasion"
+            },
+            {
+                id: 24,
+                scenario: "Priyanka, a third-year law student, secured an internship at a corporate law firm specializing in mergers and acquisitions. She was assigned to assist on a mid-sized acquisition where the client was considering purchasing a manufacturing company. The partner asked Priyanka to review a 40-page Share Purchase Agreement (SPA) draft prepared by the seller\'s lawyers and provide a summary of key terms and risks. This was a critical task—the partner needed to advise the client about potential deal-breakers and negotiation points before the final discussion meeting scheduled in three days. Priyanka spent two days reading through the agreement. She created a neat 5-page summary document organized chronologically through the contract sections: definitions, purchase consideration, payment terms, representations and warranties, closing conditions, and termination clauses. Her summary accurately listed what each clause said—she extracted key points like \"Purchase price: ₹50 crores,\" \"Payment in two installments,\" \"Closing within 90 days,\" \"Representations regarding corporate status,\" and \"Termination allowed with 30 days notice.\" It was a competent extraction of information. However, Priyanka failed to perform any meaningful analysis. She didn\'t identify the critical risk buried in Clause 8.4—an indemnity provision that effectively limited the seller\'s liability for undisclosed liabilities to only ₹2 crores (4% of purchase price), which was extraordinarily low for a manufacturing company with environmental and labor compliance obligations. She didn\'t notice that the representations and warranties regarding \"no pending litigation\" had a materiality threshold of ₹5 crores, meaning the seller wasn\'t disclosing any lawsuits below that amount—potentially hiding multiple smaller but cumulatively significant legal issues. She didn\'t flag that Clause 12.3\'s \"non-compete\" restriction on the seller was limited to only 6 months and within 50 km radius—virtually meaningless for a manufacturing business where the seller could restart a competing operation nearby after half a year. She didn\'t analyze that the \"closing conditions\" placed all regulatory approval burdens on the buyer but gave the seller unilateral right to terminate if approvals weren\'t obtained within 90 days—creating asymmetric risk. She didn\'t connect the dots that the \"material adverse change\" clause was defined so narrowly that even significant business downturns wouldn\'t qualify, leaving the buyer locked into the deal even if the target company\'s performance collapsed before closing. When Priyanka submitted her summary, the partner glanced through it and asked, \"What are the major risks here? What should we negotiate?\" Priyanka looked confused: \"I\'ve summarized all the clauses.\" The partner responded, \"Summarizing isn\'t analyzing. I need you to tell me what\'s wrong with this agreement from our client\'s perspective. What\'s dangerous? What\'s missing? Where are we exposed?\" Priyanka had no answer. The partner had to spend her evening doing the analysis herself, discovering the problematic indemnity cap, weak non-compete, and asymmetric termination rights—all of which became major negotiation points. During feedback, the partner told Priyanka: \"Legal practice requires analytical thinking—not just reading what\'s written, but understanding what it means, what\'s missing, how clauses interact, where risks hide, and what could go wrong. You read the contract but didn\'t analyze it.\" Priyanka realized she had approached a legal document like a comprehension passage rather than a risk assessment exercise requiring critical evaluation.",
+                question: "Which essential soft skill was Priyanka lacking in her contract review?",
+                options: ["Analysis", "Leadership", "Empathy", "Teamwork"],
+                answer: "Analysis"
+            },
+            {
+                id: 25,
+                scenario: "Ramesh, a litigation clerk at a busy law chamber handling civil and family law matters, was responsible for case file organization and documentation management. His role was critical—ensuring that all case documents, affidavits, evidence, and correspondence were properly organized, indexed, and accessible when needed. The chamber handled approximately 30 active cases at any time. Ramesh had worked there for two years and was generally considered reliable. However, he had one significant weakness—disorganized document management. He maintained case files inconsistently: some were neatly indexed, others were random stacks of papers. He often mixed documents from different cases, telling himself he\'d \"sort them properly later.\" He kept loose papers on his desk \"temporarily\" that would remain there for weeks. He didn\'t maintain a systematic filing protocol, instead relying on memory about where documents were kept. One critical case involved filing a reply affidavit in a property dispute pending in District Court. The client had submitted several crucial documents supporting their case: original property sale deed from 1985, possession certificate, tax payment receipts, and photographs of property boundaries. These needed to be attached as annexures to the reply affidavit. The filing deadline was approaching. Two days before the deadline, the associate advocate asked Ramesh to compile all annexures and organize them sequentially for filing. Ramesh began gathering documents from various files and desk piles. He found the main affidavit draft, some tax receipts, and the recent photographs. However, he couldn\'t locate the original 1985 sale deed—the most critical document establishing the client\'s ownership claim. He searched his desk, checked multiple files, looked through pending document trays, but couldn\'t find it. Panic set in. He vaguely remembered seeing it \"somewhere\" last week but couldn\'t recall where he\'d kept it. He had mixed it with papers from another property case or perhaps left it in a different cabinet. He spent the entire day searching, disrupting work on other cases, pulling out files randomly. By evening, the document was still missing. The associate advocate was informed. The next morning—one day before the deadline—they frantically called the client to provide another copy, but the client had given them the original and didn\'t have a photocopy. They had to coordinate with the client to get a certified copy from the Sub-Registrar\'s office, which took until late afternoon. Meanwhile, the filing deadline was hours away. The advocate had to rush to court, file the reply affidavit with incomplete annexures, and submit a separate application explaining the delay and requesting permission to file the missing annexure later. This created an extremely unprofessional impression before the judge. The opposing counsel immediately objected, arguing that the reply was incomplete and should be rejected. The judge, while allowing the filing, made critical remarks about the poor documentation management and granted the opponent additional time to respond to the \"eventually complete\" reply, delaying the case by six weeks. The client was furious, the advocate was embarrassed, and Ramesh received a serious warning. The firm subsequently implemented a strict document management protocol with digital scanning and systematic indexing. Ramesh\'s disorganized approach had created a preventable crisis that damaged the client\'s case timeline and the firm\'s credibility.",
+                question: "Which fundamental soft skill was Ramesh critically lacking?",
+                options: ["Organization", "Motivation", "Empathy", "Teamwork"],
+                answer: "Organization"
+            },
+            {
+                id: 26,
+                scenario: "Advocate Verma practiced in a district court in rural Maharashtra, handling a variety of civil, criminal, and family law matters. His clientele was predominantly from rural and semi-urban backgrounds—farmers, small business owners, daily wage laborers, and villagers with limited formal education. One afternoon, an elderly couple—Pandurang Anna and his wife Savitri—from a remote village arrived at his office regarding a pension dispute. Anna, a 68-year-old retired government employee, had been denied his pension for three years due to administrative errors and missing documentation. They had traveled 40 kilometers by bus to meet the advocate, referred by a village elder. Anna and Savitri entered the chamber hesitantly, dressed in simple village attire. They greeted Advocate Verma with traditional respect—folded hands and respectful address. Advocate Verma, who had studied in an urban law college and prided himself on his modern professional approach, responded with a crisp \"Sit down\" without reciprocating their greeting warmth. Throughout the 30-minute consultation, he maintained a formal, distant demeanor. He addressed them using formal Marathi pronouns without the warmth typical of rural interactions. When Anna tried to explain his situation with the contextual background—his decades of government service, his village\'s administrative difficulties, his family\'s current financial stress—Advocate Verma cut him off repeatedly: \"Just tell me the facts. When were you supposed to get pension? What documents do you have?\" His tone was efficient but cold. When Savitri tried to add details about their visit to the pension office, Advocate Verma addressed only Anna, barely acknowledging her presence—a cultural insensitivity given that women in rural families often keep better records of documentation. He used legal terminology without simplification: \"We\'ll file an RTI application under Section 6 of the RTI Act and subsequently may proceed under Article 226 if administrative remedies fail.\" Anna and Savitri nodded politely but clearly didn\'t understand. When Anna asked, \"Advocate Saheb, will this work? We\'ve been struggling for three years,\" instead of offering reassurance or explaining in accessible language, Advocate Verma responded curtly: \"I\'ll do my professional best. No guarantees in legal matters.\" The couple left feeling uncertain and uncomfortable. Despite Advocate Verma\'s legal competence, they felt he hadn\'t connected with them as people—only as \"a case.\" They were used to village interactions where professionals took time to build personal connection, showed empathy, and communicated in relatable ways. Two days later, Anna and Savitri consulted another advocate in a nearby town—someone recommended as \"good with common people.\" This advocate spent the first 15 minutes just listening to their story, offered them tea, inquired about their family, explained legal processes in simple Hindi/Marathi, showed photographs of similar successful cases, and assured them personally that he understood their struggle and would work diligently. His fee was similar to Advocate Verma\'s, but his approach was warmer and more relatable. Anna and Savitri immediately felt comfortable and engaged him instead. Advocate Verma lost not just that case but potential future referrals from their village network—all because he failed to recognize that legal services, especially for rural clients, require building trust and rapport through culturally appropriate, empathetic communication. His formal, distant approach was professionally correct but relationally ineffective for his client demographic.",
+                question: "Which critical soft skill was Advocate Verma lacking in his client interaction?",
+                options: ["Rapport-Building", "Leadership", "Creativity", "Motivation"],
+                answer: "Rapport-Building"
+            },
+            {
+                id: 27,
+                scenario: "Siddharth, a fourth-year law student, was interning at a reputed law firm during his summer break. He was assigned to assist in a complex commercial mediation between two business partners dissolving their partnership over financial disputes. The mediation was confidential, as stipulated in the mediation agreement signed by all parties. Mediation proceedings are governed by confidentiality principles—information disclosed during mediation cannot be shared outside the process and cannot be used in subsequent litigation. This confidentiality is foundational to allowing parties to speak openly and explore settlement without fear of disclosure. Siddharth attended three mediation sessions, taking detailed notes as instructed. The discussions revealed sensitive financial information about both parties: business valuations, profit margins, tax planning strategies, personal financial situations, and previously undisclosed business deals. One partner revealed during a private caucus (separate meeting with mediator) that they had made certain accounting adjustments that, while not illegal, would be embarrassing if publicly known. This information was shared confidentially specifically to explore settlement options without public exposure. The mediation was proceeding well toward potential settlement. One evening, Siddharth met his college friends at a café. Excited to impress them with his \"insider access\" to high-profile corporate matters, he began sharing details about the mediation case. He named the companies involved (both were well-known local businesses), described the nature of their dispute, mentioned the financial figures discussed, and even revealed the \"interesting\" accounting adjustments shared during the private caucus, framing it as a scandalous story. His friends found it fascinating, and Siddharth enjoyed the attention and perception of being \"connected\" to important cases. What Siddharth didn\'t realize was that one of his friends had a family connection to a journalist covering business news. Intrigued by the story, this friend casually mentioned it at home. Within a week, a business newspaper published a report about \"disputes between partners at [company names]\" mentioning financial figures and \"questionable accounting practices.\" While the article didn\'t explicitly cite the mediation, the details matched what Siddharth had disclosed. The parties in mediation immediately suspected a breach of confidentiality. An investigation traced the leak back to Siddharth through the friend network. The law firm was professionally embarrassed and faced potential legal action for breach of confidentiality. The mediation collapsed immediately—trust between parties evaporated, and they proceeded to lengthy litigation. The firm terminated Siddharth\'s internship immediately and reported the confidentiality breach to his law college. His college initiated disciplinary proceedings. Siddharth faced academic consequences and his professional reputation was permanently damaged before even starting his career. Several law firms where he subsequently applied rejected him after background checks revealed the incident. Senior partners at the firm told him: \"Legal practice is built on trust and confidentiality. Clients share sensitive information trusting it will be protected. You violated that fundamental ethical obligation to impress your friends. This isn\'t a mistake—it\'s a character failure. No client will trust you now.\" Siddharth\'s momentary lapse in ethical judgment—driven by ego and desire for social validation—destroyed his professional credibility and had serious consequences for his clients, his firm, and his own career trajectory.",
+                question: "Which fundamental soft skill did Siddharth catastrophically lack?",
+                options: ["Ethics", "Teamwork", "Negotiation", "Empathy"],
+                answer: "Ethics"
+            },
+            {
+                id: 28,
+                scenario: "Advocate Nair ran a legal aid clinic one day per week, providing free legal advice to economically disadvantaged individuals. On a busy Saturday morning, the clinic was handling walk-in consultations with a queue of about 15 people. Each consultation was allocated 15-20 minutes. Mrs. Laxmi Pawar, a 72-year-old retired school teacher from a nearby village, was number eight in the queue. She had traveled two hours by local transport to seek help with a pension dispute. Due to administrative delays and bureaucratic complications, her family pension (after her husband\'s death three years prior) had been reduced incorrectly, and she had been making rounds of government offices for months without resolution. When her turn came, Mrs. Pawar entered the consultation room, moving slowly due to her age and arthritis. Advocate Nair, already fatigued from seven back-to-back consultations and anxious about the seven people still waiting, greeted her quickly: \"Yes, what\'s your problem? Please be quick, there are others waiting.\" Mrs. Pawar, not accustomed to hurried interactions and needing to provide context to explain her situation properly, began: \"Saheb, my husband worked as a junior engineer in PWD for 35 years. He retired in 2010 and was getting pension regularly. When he passed away in 2020, I started getting family pension as per rules. Initially, I was getting ₹12,000 per month, which was correct according to his last pay. But then, suddenly, eight months ago, the pension office reduced it to ₹7,500 without any notice or explanation. I\'ve been to the pension office six times...\" Advocate Nair interrupted: \"Just tell me the main point—what amount should you be getting and what are you getting now?\" Mrs. Pawar, flustered by the interruption, tried to continue: \"₹12,000 was correct, but now ₹7,500... but I wanted to explain that they said something about...\" Advocate Nair cut her off again, his voice showing irritation: \"Madam, I understand. Do you have documents? Pension papers? Last pay slip?\" Mrs. Pawar began pulling documents from her cloth bag, her arthritic hands moving slowly. As she searched, she tried to explain: \"You see, the problem started when they asked me to resubmit my marriage certificate because...\" Advocate Nair, now visibly impatient, snapped: \"Madam, please, just show me the documents first. We don\'t have much time. The explanation can come later.\" Mrs. Pawar, now feeling rushed and unwelcome, hurriedly pulled out a few documents but in her nervousness, missed the critical one—a notice from the pension office explaining the reduction (due to an error in categorizing her late husband\'s service period). She handed over pension slips and marriage certificate. Advocate Nair glanced through them quickly and said: \"This looks like an administrative error. File an RTI, then a grievance application. Here, take this format,\" handing her a printed template. The entire interaction had taken barely 8 minutes. Mrs. Pawar, sensing his impatience, hesitantly asked: \"But Saheb, should I also mention about the period when...\" Advocate Nair, already standing up to signal the consultation was over, responded: \"If it\'s relevant, include everything in writing. Next!\" Mrs. Pawar left, feeling confused, disrespected, and uncertain about what to do. She didn\'t file the RTI or grievance because she didn\'t understand the process despite the template. Three weeks later, a social worker visiting her village learned about her situation. The social worker spent 45 minutes listening to Mrs. Pawar\'s complete story and discovered the critical detail Advocate Nair had missed—the pension office had incorrectly recalculated her late husband\'s service period by excluding five years of his initial contractual service, which actually counted toward pension calculations under the rules applicable at that time. This was mentioned in the notice Mrs. Pawar had in her bag but didn\'t get to show. With patience, the social worker helped Mrs. Pawar prepare a proper representation with all relevant documents, which resulted in pension correction within two months, including arrears of ₹45,000. Mrs. Pawar later told the social worker: \"That lawyer was busy and didn\'t have time to listen. You listened to my full story and understood my problem. That made all the difference.\" Advocate Nair\'s impatience, while understandable given time pressure, prevented him from properly understanding the case, gathering the right information, and providing effective help. His efficiency-focused approach missed the critical details that emerge only when clients are allowed to explain completely, especially elderly clients who need more time to communicate.",
+                question: "Which crucial soft skill was Advocate Nair lacking in this consultation?",
+                options: ["Patience", "Motivation", "Public Speaking", "Goal-Setting"],
+                answer: "Patience"
+            },
+            {
+                id: 29,
+                scenario: "Three companies—a manufacturer, a distributor, and a technology provider—were entering into a complex three-party commercial agreement for developing and marketing a new industrial automation product. The manufacturer would produce the hardware, the technology provider would develop and license the software, and the distributor would handle sales and after-sales service. Given the multi-party structure and interdependent obligations, clear contractual terms were critical. The manufacturer\'s legal team assigned Tarun, a second-year associate, to draft the payment terms clause—a crucial section defining how revenue would be shared among the three parties. The payment structure was moderately complex: the distributor would collect payment from customers, retain 25% as distribution commission, remit 60% to the manufacturer, and transfer 15% to the technology provider. However, for orders above ₹10 lakhs, the technology provider would receive an additional 2% (reducing the distributor\'s share to 23%). For payment delays beyond 30 days, interest at 12% per annum would apply, payable to the party whose share was delayed. Tarun attempted to draft this in a single, comprehensive sentence to demonstrate his sophisticated legal writing: \"The Distributor, upon receipt of payment from the End Customer, shall retain twenty-five percent (25%) as distribution commission and remit sixty percent (60%) to the Manufacturer and fifteen percent (15%) to the Technology Provider, provided that for orders exceeding INR 10,00,000 (Ten Lakhs), the Technology Provider\'s share shall be increased by an additional two percent (2%), which shall be deducted from the Distributor\'s commission, reducing it to twenty-three percent (23%), and further provided that in the event of payment delays exceeding thirty (30) days from the due date, interest at the rate of twelve percent (12%) per annum shall be payable to the party whose share has been delayed, calculated from the date of delay until the date of actual payment.\" This 110-word single sentence, while technically containing all the information, was nearly incomprehensible. It contained multiple nested conditions (\"provided that... and further provided that...\"), required readers to hold multiple percentages and conditions in mind simultaneously, and obscured the logical flow of payment distribution. During contract review, all three parties struggled to understand the clause. The distributor\'s CFO read it three times and asked, \"So if an order is ₹12 lakhs and paid after 35 days, who gets what and who pays interest to whom?\" Nobody could answer immediately without re-reading carefully and calculating. The technology provider\'s legal counsel pointed out, \"This clause is ambiguous—does the interest apply to the delayed amount or the full payment? Is it payable by the distributor or the customer?\" These were critical distinctions that Tarun\'s convoluted sentence failed to clarify. The manufacturer\'s senior partner, reviewing the draft, was frustrated: \"This reads like you\'re trying to win a prize for longest sentence. Break it down. Use bullet points. Make it clear.\" Tarun had to redraft the clause into a structured format: \"5.1 Payment Distribution: Upon receipt of payment from the End Customer, the Distributor shall distribute the amount as follows: (a) Standard Orders (below INR 10,00,000): • Distributor: 25% • Manufacturer: 60% • Technology Provider: 15% (b) Large Orders (INR 10,00,000 and above): • Distributor: 23% • Manufacturer: 60% • Technology Provider: 17% 5.2 Payment Timeline: All remittances under Clause 5.1 shall be made within seven (7) days of receipt from End Customer. 5.3 Interest on Delayed Payments: If the Distributor delays remittance beyond thirty (30) days from receipt, the Distributor shall pay interest at 12% per annum to the affected party, calculated on the delayed amount from the 31st day until actual payment.\" This revised version, though longer, was immediately clear to all parties. The contract negotiation proceeded smoothly. Tarun learned a critical lesson: legal drafting isn\'t about demonstrating linguistic complexity—it\'s about ensuring all parties understand their obligations unambiguously. Clarity prevents disputes. His initial draft\'s lack of clarity had nearly derailed a commercial deal and could have led to costly future disputes over payment interpretation.",
+                question: "Which soft skill was critically missing in Tarun's initial drafting approach?",
+                options: ["Clarity", "Persuasion", "Empathy", "Negotiation"],
+                answer: "Clarity"
+            },
+            {
+                id: 30,
+                scenario: "Advocate Malhotra, a 45-year-old senior advocate running a successful litigation chamber, employed four junior advocates and two legal interns. His chamber handled high-stakes civil and commercial litigation, often working under tight deadlines and high pressure. Malhotra was undeniably brilliant—sharp legal mind, excellent courtroom skills, and impressive client network. However, he had a significant management weakness: low emotional intelligence in dealing with his team. He had no awareness of or sensitivity to his juniors\' emotional states, workload stress, or personal circumstances. His management style was purely transactional and often harsh. One particularly intense month, the chamber was handling three concurrent matters with approaching deadlines: a Supreme Court SLP (Special Leave Petition), a High Court urgent application, and a complex arbitration brief. The entire team was working 12-14 hour days, including weekends. Aditi, one of the junior advocates, was handling significant research and drafting responsibilities for the arbitration brief. Unbeknownst to Malhotra, Aditi was also dealing with a personal crisis—her father had been hospitalized with a serious cardiac condition, and she was managing hospital coordination while trying to maintain her work commitments. She had mentioned it once briefly, but Malhotra had barely acknowledged it, saying, \"Handle it, but work can\'t suffer.\" During a particularly crucial week, Aditi submitted a draft legal brief she had worked on until 2 AM despite spending her afternoons at the hospital. The draft was 90% excellent but contained two citations that needed updating and one section that needed expansion. Malhotra, under his own stress, called Aditi into his office and criticized her harshly in front of two other juniors and an intern: \"This is sloppy work. You\'ve cited a 2018 judgment when there\'s a 2021 Supreme Court ruling on the same issue. Were you even paying attention? I can\'t submit this quality to the client. If you can\'t handle the workload, maybe this chamber isn\'t the right fit for you.\" His tone was cold and dismissive, with no acknowledgment of her efforts, the 90% of excellent work, or any inquiry about whether she was managing okay under the circumstances. Aditi, already emotionally stretched thin between her father\'s health and work pressure, felt humiliated and crushed. She said nothing, nodded, went back to her desk, corrected the brief, and submitted the revised version within three hours. But the damage was done. Over the following weeks, Malhotra continued his pattern of harsh criticism without recognition or emotional consideration. When another junior, Rahul, requested one Sunday off after working three consecutive weekends, Malhotra responded sarcastically: \"Sure, take off. I\'ll just tell the client their case isn\'t important enough to work on.\" When the intern made a minor filing error after working until midnight, Malhotra berated him publicly: \"Even a first-year student knows this. What do they teach in law schools now?\" The chamber\'s atmosphere became toxic. Despite competitive salaries, the emotional environment was draining. Within three months, Aditi resigned, citing \"personal reasons\" but later telling a colleague, \"I couldn\'t take the constant criticism and zero emotional support. He treats us like machines, not humans.\" Rahul left shortly after for a position paying slightly less but with a healthier work environment. The intern declined a permanent position offer. Finding skilled replacements in the competitive legal market took months, during which Malhotra had to handle increased workload himself, affecting client service quality. Other junior advocates in the court circuit began warning talented freshers against joining Malhotra\'s chamber, describing the work environment as \"professionally excellent but emotionally abusive.\" Malhotra\'s low emotional intelligence—his inability to recognize and respond appropriately to his team\'s emotional states, appreciate efforts even while providing feedback, balance criticism with recognition, and create a supportive environment—led to high attrition, damaged his chamber\'s reputation as an employer, and ultimately hurt his practice\'s sustainability. He had the technical legal skills but lacked the people management skills essential for leading a team effectively. Which critical soft skill was fundamentally absent in Advocate Malhotra\'s leadership approach? A. Emotional-Intelligence B. Listening C. Teamwork D. Motivation",
+                question: "Which critical soft skill was fundamentally absent in Advocate Malhotra's leadership approach?",
+                options: ["Emotional-Intelligence", "Listening", "Teamwork", "Motivation"],
+                answer: "Emotional-Intelligence"
+            }
+        ];
+
+        // Answer key mapping - correct answers based on the provided answer key
+        const answerKey = {
+            1: "B", // Communication
+            2: "A", // Listening
+            3: "B", // Empathy
+            4: "B", // Time Management
+            5: "A", // Goal Setting
+            6: "A", // Leadership
+            7: "A", // Teamwork
+            8: "A", // Conflict Resolution
+            9: "A", // Stress Management
+            10: "A", // Negotiation
+            11: "A", // Motivation
+            12: "A", // Decision-Making
+            13: "A", // Body-Language (Nonverbal Communication)
+            14: "A", // Critical Thinking
+            15: "A", // Problem-Solving
+            16: "A", // Self-Confidence
+            17: "A", // Creativity
+            18: "A", // Assertiveness
+            19: "A", // Adaptability
+            20: "A", // Public Speaking
+            21: "A", // Observation
+            22: "A", // Self-Confidence (Confidence-Building)
+            23: "A", // Persuasion
+            24: "A", // Analysis (Analytical Skills)
+            25: "A", // Organization (Document Management)
+            26: "A", // Rapport-Building
+            27: "A", // Ethics (Ethical Judgment)
+            28: "A", // Patience
+            29: "A", // Clarity
+            30: "A"  // Emotional Intelligence
+        };
+
+        // Application state
+        let currentUser = null;
+        let isAdmin = false;
+        let currentQuestion = 0;
+        let studentAnswers = {};
+        let timeRemaining = 90 * 60; // 90 minutes in seconds
+        let timerInterval = null;
+
+        // Initialize
+        function init() {
+            // Initialize admin account if not exists
+            if (!localStorage.getItem('adminAccount')) {
+                localStorage.setItem('adminAccount', JSON.stringify({
+                    username: 'admin',
+                    password: 'admin123'
+                }));
+            }
+
+            // Initialize users array if not exists
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify([]));
+            }
+
+            // Initialize tests array if not exists
+            if (!localStorage.getItem('tests')) {
+                localStorage.setItem('tests', JSON.stringify([]));
+            }
+        }
+
+        // Section navigation
+        function showSection(sectionName) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+            const sectionMap = {
+                'login': 'login-section',
+                'register': 'register-section',
+                'forgot': 'forgot-section',
+                'admin-login': 'admin-login-section'
+            };
+
+            document.getElementById(sectionMap[sectionName]).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Student Registration
+        function registerStudent() {
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const mobile = document.getElementById('reg-mobile').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+            if (!name || !email || !mobile || !password || !confirmPassword) {
+                showMessage('register-message', 'All fields are required', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage('register-message', 'Passwords do not match', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('register-message', 'Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users'));
+            if (users.find(u => u.email === email)) {
+                showMessage('register-message', 'Email already registered', 'error');
+                return;
+            }
+
+            users.push({
+                name,
+                email,
+                mobile,
+                password,
+                registeredAt: new Date().toISOString()
+            });
+
+            localStorage.setItem('users', JSON.stringify(users));
+            showMessage('register-message', 'Registration successful! Please login.', 'success');
+
+            // Clear form
+            document.getElementById('reg-name').value = '';
+            document.getElementById('reg-email').value = '';
+            document.getElementById('reg-mobile').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('reg-confirm-password').value = '';
+        }
+
+        // Student Login
+        function studentLogin() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                showMessage('login-message', 'Please enter email and password', 'error');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users'));
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                showMessage('login-message', 'Invalid email or password', 'error');
+                return;
+            }
+
+            // Check if user already took test
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            const userTest = tests.find(t => t.email === email);
+
+            if (userTest) {
+                showMessage('login-message', 'You have already completed this test', 'error');
+                return;
+            }
+
+            currentUser = user;
+            startTest();
+        }
+
+        // Reset Password
+        function resetPassword() {
+            const email = document.getElementById('forgot-email').value.trim();
+            const newPassword = document.getElementById('forgot-new-password').value;
+            const confirmPassword = document.getElementById('forgot-confirm-password').value;
+
+            if (!email || !newPassword || !confirmPassword) {
+                showMessage('forgot-message', 'All fields are required', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showMessage('forgot-message', 'Passwords do not match', 'error');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showMessage('forgot-message', 'Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users'));
+            const userIndex = users.findIndex(u => u.email === email);
+
+            if (userIndex === -1) {
+                showMessage('forgot-message', 'Email not found', 'error');
+                return;
+            }
+
+            users[userIndex].password = newPassword;
+            localStorage.setItem('users', JSON.stringify(users));
+            showMessage('forgot-message', 'Password reset successful! Please login.', 'success');
+
+            // Clear form
+            document.getElementById('forgot-email').value = '';
+            document.getElementById('forgot-new-password').value = '';
+            document.getElementById('forgot-confirm-password').value = '';
+        }
+
+        // Admin Login
+        function adminLogin() {
+            const username = document.getElementById('admin-username').value.trim();
+            const password = document.getElementById('admin-password').value;
+
+            const adminAccount = JSON.parse(localStorage.getItem('adminAccount'));
+
+            if (username === adminAccount.username && password === adminAccount.password) {
+                isAdmin = true;
+                showAdminDashboard();
+            } else {
+                showMessage('admin-login-message', 'Invalid credentials', 'error');
+            }
+        }
+
+        // Start Test
+        function startTest() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('test-section').classList.add('active');
+            
+            currentQuestion = 0;
+            studentAnswers = {};
+            timeRemaining = 90 * 60;
+
+            renderQuestionSelector();
+            renderQuestion();
+            startTimer();
+        }
+
+        // Timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+
+                if (timeRemaining <= 300) { // 5 minutes warning
+                    document.getElementById('timer').classList.add('warning');
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    autoSubmitTest();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Render question selector
+        function renderQuestionSelector() {
+            const selector = document.getElementById('question-selector');
+            selector.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'question-btn';
+                btn.textContent = index + 1;
+                
+                if (studentAnswers[q.id]) {
+                    btn.classList.add('answered');
+                }
+                if (index === currentQuestion) {
+                    btn.classList.add('current');
+                }
+
+                btn.onclick = () => {
+                    currentQuestion = index;
+                    renderQuestion();
+                    renderQuestionSelector();
+                };
+
+                selector.appendChild(btn);
+            });
+        }
+
+        // Render current question
+        function renderQuestion() {
+            const container = document.getElementById('question-container');
+            const q = questions[currentQuestion];
+
+            container.innerHTML = `
+                <div class="question-card animated-border">
+                    <div class="question-number">Question ${q.id} of 30</div>
+                    <div class="scenario-text">
+                        <strong style="color: var(--neon-green);">Scenario:</strong><br><br>
+                        ${q.scenario}
+                    </div>
+                    <div class="question-text">
+                        <strong style="color: var(--neon-green); font-size: 1.1em;">${q.question}</strong>
+                    </div>
+                    <div class="options">
+                        ${q.options.map((opt, idx) => `
+                            <label class="option-label ${studentAnswers[q.id] === String.fromCharCode(65 + idx) ? 'selected' : ''}">
+                                <input type="radio" 
+                                       name="q${q.id}" 
+                                       value="${String.fromCharCode(65 + idx)}"
+                                       ${studentAnswers[q.id] === String.fromCharCode(65 + idx) ? 'checked' : ''}
+                                       onchange="saveAnswer(${q.id}, this.value)">
+                                ${String.fromCharCode(65 + idx)}. ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateStats();
+        }
+
+        // Save answer
+        function saveAnswer(questionId, answer) {
+            studentAnswers[questionId] = answer;
+            renderQuestionSelector();
+            updateStats();
+        }
+
+        // Update statistics
+        function updateStats() {
+            const answeredCount = Object.keys(studentAnswers).length;
+            document.getElementById('answered-count').textContent = answeredCount;
+            document.getElementById('remaining-count').textContent = Math.max(0, 25 - answeredCount);
+        }
+
+        // Navigation
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+                renderQuestionSelector();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+                renderQuestionSelector();
+            }
+        }
+
+        // Submit test
+        function submitTest() {
+            const answeredCount = Object.keys(studentAnswers).length;
+
+            if (answeredCount < 25) {
+                alert(`You have answered ${answeredCount} questions. You must answer exactly 25 questions before submitting.`);
+                return;
+            }
+
+            if (answeredCount > 25) {
+                alert(`You have answered ${answeredCount} questions. Please answer exactly 25 questions (remove ${answeredCount - 25} answers).`);
+                return;
+            }
+
+            if (!confirm('Are you sure you want to submit your test? You cannot change answers after submission.')) {
+                return;
+            }
+
+            clearInterval(timerInterval);
+            evaluateTest();
+        }
+
+        function autoSubmitTest() {
+            alert('Time is up! Your test will be automatically submitted.');
+            evaluateTest();
+        }
+
+        // Evaluate test
+        function evaluateTest() {
+            let correctCount = 0;
+            const detailedAnswers = [];
+
+            Object.keys(studentAnswers).forEach(qId => {
+                const question = questions.find(q => q.id === parseInt(qId));
+                const studentAnswer = studentAnswers[qId];
+                const correctAnswerLetter = answerKey[parseInt(qId)];
+                const correctAnswerIndex = correctAnswerLetter.charCodeAt(0) - 65;
+                const correctAnswerText = question.options[correctAnswerIndex];
+                const isCorrect = studentAnswer === correctAnswerLetter;
+
+                if (isCorrect) correctCount++;
+
+                detailedAnswers.push({
+                    questionId: qId,
+                    studentAnswer: studentAnswer,
+                    correctAnswer: correctAnswerLetter,
+                    isCorrect: isCorrect
+                });
+            });
+
+            const percentage = (correctCount / 25) * 100;
+            const passed = percentage >= 75;
+
+            const testResult = {
+                name: currentUser.name,
+                email: currentUser.email,
+                mobile: currentUser.mobile,
+                answeredCount: 25,
+                correctCount: correctCount,
+                percentage: percentage.toFixed(2),
+                passed: passed,
+                answers: detailedAnswers,
+                submittedAt: new Date().toISOString()
+            };
+
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            tests.push(testResult);
+            localStorage.setItem('tests', JSON.stringify(tests));
+
+            showCompleteSection();
+        }
+
+        // Show complete section
+        function showCompleteSection() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('complete-section').classList.add('active');
+        }
+
+        // Logout during test - save partial progress
+        function logoutDuringTest() {
+            const answeredCount = Object.keys(studentAnswers).length;
+
+            if (answeredCount === 0) {
+                if (confirm('You have not answered any questions. Are you sure you want to logout?')) {
+                    logout();
+                }
+                return;
+            }
+
+            if (!confirm(`You have answered ${answeredCount} question(s). Your progress will be saved and submitted. You will NOT be able to login again to complete the test. Continue with logout?`)) {
+                return;
+            }
+
+            clearInterval(timerInterval);
+            evaluatePartialTest();
+        }
+
+        // Evaluate partial test for early logout
+        function evaluatePartialTest() {
+            let correctCount = 0;
+            const detailedAnswers = [];
+            const answeredCount = Object.keys(studentAnswers).length;
+
+            Object.keys(studentAnswers).forEach(qId => {
+                const question = questions.find(q => q.id === parseInt(qId));
+                const studentAnswer = studentAnswers[qId];
+                const correctAnswerLetter = answerKey[parseInt(qId)];
+                const correctAnswerIndex = correctAnswerLetter.charCodeAt(0) - 65;
+                const correctAnswerText = question.options[correctAnswerIndex];
+                const isCorrect = studentAnswer === correctAnswerLetter;
+
+                if (isCorrect) correctCount++;
+
+                detailedAnswers.push({
+                    questionId: qId,
+                    studentAnswer: studentAnswer,
+                    correctAnswer: correctAnswerLetter,
+                    isCorrect: isCorrect
+                });
+            });
+
+            const percentage = answeredCount > 0 ? (correctCount / answeredCount) * 100 : 0;
+            const passed = answeredCount >= 25 && percentage >= 75;
+
+            const testResult = {
+                name: currentUser.name,
+                email: currentUser.email,
+                mobile: currentUser.mobile,
+                answeredCount: answeredCount,
+                correctCount: correctCount,
+                percentage: percentage.toFixed(2),
+                passed: passed,
+                incomplete: answeredCount < 25,
+                answers: detailedAnswers,
+                submittedAt: new Date().toISOString()
+            };
+
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            tests.push(testResult);
+            localStorage.setItem('tests', JSON.stringify(tests));
+
+            showCompleteSection();
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            isAdmin = false;
+            studentAnswers = {};
+            currentQuestion = 0;
+            clearInterval(timerInterval);
+            
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('login-section').classList.add('active');
+        }
+
+        // Admin Dashboard
+        function showAdminDashboard() {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('admin-section').classList.add('active');
+            showAdminTab('users');
+        }
+
+        function showAdminTab(tabName) {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.add('hidden'));
+            
+            switch(tabName) {
+                case 'users':
+                    document.getElementById('admin-users').classList.remove('hidden');
+                    loadUsersTable();
+                    break;
+                case 'results':
+                    document.getElementById('admin-results').classList.remove('hidden');
+                    loadResultsTable();
+                    break;
+                case 'answer-key':
+                    document.getElementById('admin-answer-key').classList.remove('hidden');
+                    loadAnswerKeyTable();
+                    break;
+                case 'settings':
+                    document.getElementById('admin-settings').classList.remove('hidden');
+                    break;
+            }
+        }
+
+        function loadUsersTable() {
+            const users = JSON.parse(localStorage.getItem('users'));
+            const container = document.getElementById('users-table');
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Registered At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${users.map((user, idx) => `
+                            <tr>
+                                <td>${idx + 1}</td>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.mobile}</td>
+                                <td>${new Date(user.registeredAt).toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function loadResultsTable() {
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            const container = document.getElementById('results-table');
+
+            const passCount = tests.filter(t => t.passed).length;
+            const failCount = tests.filter(t => !t.passed).length;
+
+            document.getElementById('total-tests').textContent = tests.length;
+            document.getElementById('pass-count').textContent = passCount;
+            document.getElementById('fail-count').textContent = failCount;
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Answered</th>
+                            <th>Score</th>
+                            <th>Percentage</th>
+                            <th>Result</th>
+                            <th>Submitted At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tests.map((test, idx) => `
+                            <tr>
+                                <td>${idx + 1}</td>
+                                <td>${test.name}</td>
+                                <td>${test.email}</td>
+                                <td>${test.answeredCount}/25 ${test.incomplete ? '(Incomplete)' : ''}</td>
+                                <td>${test.correctCount}/${test.answeredCount}</td>
+                                <td>${test.percentage}%</td>
+                                <td class="${test.passed ? 'correct-answer' : 'wrong-answer'}">
+                                    ${test.incomplete ? 'INCOMPLETE' : (test.passed ? 'PASS' : 'FAIL')}
+                                </td>
+                                <td>${new Date(test.submittedAt).toLocaleString()}</td>
+                                <td>
+                                    <button onclick="downloadAnswerSheet('${test.email}')">Download Answers</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function loadAnswerKeyTable() {
+            const container = document.getElementById('answer-key-table');
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Question #</th>
+                            <th>Correct Answer</th>
+                            <th>Soft Skill</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${questions.map(q => {
+                            const correctLetter = answerKey[q.id];
+                            const correctIndex = correctLetter.charCodeAt(0) - 65;
+                            const correctOption = q.options[correctIndex];
+                            return `
+                                <tr>
+                                    <td>${q.id}</td>
+                                    <td>${correctLetter}. ${correctOption}</td>
+                                    <td>${q.answer}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Download functions
+        function downloadUserData() {
+            const users = JSON.parse(localStorage.getItem('users'));
+            
+            let csv = 'Name,Email,Mobile,Registered At\n';
+            users.forEach(user => {
+                csv += `"${user.name}","${user.email}","${user.mobile}","${new Date(user.registeredAt).toLocaleString()}"\n`;
+            });
+
+            downloadFile(csv, 'users_data.csv', 'text/csv');
+        }
+
+        function downloadResultsSummary() {
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            
+            let csv = 'Name,Email,Answered,Score,Percentage,Result,Submitted At\n';
+            tests.forEach(test => {
+                const result = test.incomplete ? 'INCOMPLETE' : (test.passed ? 'PASS' : 'FAIL');
+                csv += `"${test.name}","${test.email}","${test.answeredCount}/25","${test.correctCount}/${test.answeredCount}","${test.percentage}%","${result}","${new Date(test.submittedAt).toLocaleString()}"\n`;
+            });
+
+            downloadFile(csv, 'test_results_summary.csv', 'text/csv');
+        }
+
+        function downloadAnswerSheet(email) {
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            const test = tests.find(t => t.email === email);
+
+            if (!test) return;
+
+            let txt = `BVDU Soft Skills MCQ Test - Answer Sheet\n`;
+            txt += `${'='.repeat(60)}\n\n`;
+            txt += `Student Name: ${test.name}\n`;
+            txt += `Email: ${test.email}\n`;
+            txt += `Questions Answered: ${test.answeredCount}/25\n`;
+            txt += `Score: ${test.correctCount}/${test.answeredCount} (${test.percentage}%)\n`;
+            txt += `Result: ${test.incomplete ? 'INCOMPLETE - Early Logout' : (test.passed ? 'PASS' : 'FAIL')}\n`;
+            txt += `Submitted At: ${new Date(test.submittedAt).toLocaleString()}\n\n`;
+            txt += `${'='.repeat(60)}\n\n`;
+
+            test.answers.forEach(ans => {
+                const question = questions.find(q => q.id === parseInt(ans.questionId));
+                const correctLetter = answerKey[parseInt(ans.questionId)];
+                
+                txt += `Question ${ans.questionId}: ${question.question}\n`;
+                txt += `Student Answer: ${ans.studentAnswer}\n`;
+                txt += `Correct Answer: ${correctLetter}\n`;
+                txt += `Result: ${ans.isCorrect ? 'CORRECT ✓' : 'WRONG ✗'}\n`;
+                txt += `${'-'.repeat(60)}\n\n`;
+            });
+
+            downloadFile(txt, `answer_sheet_${email}.txt`, 'text/plain');
+        }
+
+        function downloadFile(content, fileName, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        // Admin settings
+        function changeAdminPassword() {
+            const newPassword = document.getElementById('admin-new-password').value;
+            const confirmPassword = document.getElementById('admin-confirm-password').value;
+
+            if (!newPassword || !confirmPassword) {
+                showMessage('settings-message', 'Please enter both password fields', 'error');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                showMessage('settings-message', 'Passwords do not match', 'error');
+                return;
+            }
+
+            if (newPassword.length < 6) {
+                showMessage('settings-message', 'Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            const adminAccount = JSON.parse(localStorage.getItem('adminAccount'));
+            adminAccount.password = newPassword;
+            localStorage.setItem('adminAccount', JSON.stringify(adminAccount));
+
+            showMessage('settings-message', 'Admin password updated successfully', 'success');
+            document.getElementById('admin-new-password').value = '';
+            document.getElementById('admin-confirm-password').value = '';
+        }
+
+        function resetUserAccount() {
+            const email = document.getElementById('reset-user-email').value.trim();
+
+            if (!email) {
+                showMessage('settings-message', 'Please enter user email', 'error');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users'));
+            const user = users.find(u => u.email === email);
+
+            if (!user) {
+                showMessage('settings-message', 'User not found', 'error');
+                return;
+            }
+
+            const tests = JSON.parse(localStorage.getItem('tests'));
+            const updatedTests = tests.filter(t => t.email !== email);
+            localStorage.setItem('tests', JSON.stringify(updatedTests));
+
+            showMessage('settings-message', `Test data reset for ${email}. User can now take the test again.`, 'success');
+            document.getElementById('reset-user-email').value = '';
+            loadResultsTable();
+        }
+
+        function adminLogout() {
+            isAdmin = false;
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById('admin-login-section').classList.add('active');
+        }
+
+        // Helper function to show messages
+        function showMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 5000);
+        }
+
+        // Initialize on load
+        window.onload = init;
+    </script>
+</body>
+</html>
+
